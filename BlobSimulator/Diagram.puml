@@ -1,0 +1,10 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+
+class MainWindow{
+}
+
+class BlobCell{
+}
+
+@enduml
