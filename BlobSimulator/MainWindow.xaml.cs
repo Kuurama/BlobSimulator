@@ -83,10 +83,10 @@ namespace BlobSimulator
         {
             InitializeComponent();
 
-            int l_NumberOfThread = 15;
+            int l_NumberOfThread = 20; /// 20*2 in reality => Seems like a good value for 1M BlobCell, but does not work above 2M Blob.
 
             /// Instanciate the Blobs.
-            m_BlobCount = 16;
+            m_BlobCount = 500000; /// If nothing happen beside Huge CPU usage => lower the Number Of Thread.
 
             if (m_BlobCount < l_NumberOfThread)
             {
