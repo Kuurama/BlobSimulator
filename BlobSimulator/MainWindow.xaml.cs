@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Color = System.Drawing.Color;
 
 namespace BlobSimulator
 {
@@ -19,16 +21,48 @@ namespace BlobSimulator
         public const int HEIGHT = 450;
 
         /// Basically FPS.
-        private const int UPDATE_TICK_PER_SECOND = 50;
+        public const int UPDATE_DELAY = 2;
 
-        private const int RENDER_TICK_PER_SECOND = 50;
-        private readonly Random m_Random = new Random();
-        public int m_FPS;
+        public const int RENDER_DELAY = 2;
+
+        public static readonly Random Random = new Random();
+
+        private readonly int m_BlobCount;
+        
+        public static int m_FPS;
+        public static int m_TPS;
+        public static string m_FPSText;
+        public static string m_TPSText;
+
+        private readonly int m_WorkerThreads;
+        private readonly int m_CompletionPortThreads;
+
+        /// Create the FPS TextBox Globally.
+        private TextBlock m_FPSTextBlock = new TextBlock
+        {
+            Text = "FPS:",
+            Foreground = new SolidColorBrush(Colors.Aqua)
+        };
+
+        /// Create the TPS (Tick Per Second) TextBox Globally.
+        private readonly TextBlock m_TPSTextBlock = new TextBlock
+        {
+            Text = "TPS:",
+            Foreground = new SolidColorBrush(Colors.Aqua)
+        };
+        
+        /// Create the BLobCount TextBox Globally.
+        private readonly TextBlock m_BLobCountTextBlock = new TextBlock
+        {
+            Text = "BlobCount:",
+            Foreground = new SolidColorBrush(Colors.Aqua)
+        };
 
         /// Create the Stopwatch used for the Thread's Tick Loop.
-        private readonly Stopwatch m_Stopwatch = new Stopwatch();
+        public static readonly Stopwatch m_Stopwatch = new Stopwatch();
 
-        private long m_StartTimeMillisecond;
+        public static long m_RenderStartTimeMillisecond;
+        public static long m_UpdateStartTimeMillisecond;
 
         /// Make the BitmapPixelMaker.
         public static readonly BitmapPixelMaker BitmapPixelMaker = new BitmapPixelMaker(WIDTH, HEIGHT);
@@ -41,59 +75,57 @@ namespace BlobSimulator
             Margin = new Thickness(0)
         };
 
-        /// Create an Image to display the bitmap.
-        private readonly List<BlobCell> m_BlobCells;
 
+        /// Create the DispatcherTimers used to Make the Update and Render Loop.
         private readonly DispatcherTimer m_RenderTimer = new DispatcherTimer();
-
         private readonly DispatcherTimer m_UpdateTimer = new DispatcherTimer();
-
         public MainWindow()
         {
             InitializeComponent();
-            m_RenderTimer.Interval = TimeSpan.FromMilliseconds(60D / RENDER_TICK_PER_SECOND); /// Sets m_RenderTimer.Tick to loop at RENDER_TICK_PER_SECOND.
-            m_RenderTimer.Tick += Render;
 
-            m_UpdateTimer.Interval = TimeSpan.FromMilliseconds(60D / UPDATE_TICK_PER_SECOND); /// Sets m_UpdateTimer.Tick to loop at UPDATE_TICK_PER_SECOND.
-            m_UpdateTimer.Tick += Update;
+            int l_NumberOfThread = 15;
 
             /// Instanciate the Blobs.
-            m_BlobCells = BlobController.CreateBlobGroup(150, m_Random.Next(0, WIDTH), m_Random.Next(0, HEIGHT), 1.0f, m_Random);
+            m_BlobCount = 16;
 
-            m_Stopwatch.Start();
-            m_StartTimeMillisecond = m_Stopwatch.ElapsedMilliseconds;
-
-            m_RenderTimer.Start();
-            m_UpdateTimer.Start();
-        }
-
-        private void Update(object? p_Sender, EventArgs p_EventArgs) /// This will be used for code processing.
-        {
-            foreach (var l_BlobCell in m_BlobCells)
+            if (m_BlobCount < l_NumberOfThread)
             {
-                l_BlobCell.Move(m_Random);
+                l_NumberOfThread = m_BlobCount;
             }
+
+            int l_PosX = Random.Next(0, WIDTH);
+            int l_PosY = Random.Next(0, HEIGHT);
+            
+            m_Stopwatch.Start();
+
+            m_RenderTimer.Interval = TimeSpan.FromMilliseconds(20); /// Sets m_RenderTimer.Tick to loop at RENDER_DELAY.
+            m_RenderTimer.Tick += Render;
+            
+            m_UpdateTimer.Start();
+            m_RenderTimer.Start();
+            
+            
+            for (int l_Index = 0; l_Index < l_NumberOfThread; l_Index++)
+            {
+                int l_BlobCount = m_BlobCount / l_NumberOfThread;
+                List<BlobCell> l_BlobCells = BlobController.CreateBlobGroup(l_BlobCount, l_PosX, l_PosY, 1.0f, Random);
+                BlobController l_BlobController = new BlobController(l_BlobCells);
+            }
+
+            ThreadPool.GetMaxThreads(out m_WorkerThreads, out m_CompletionPortThreads);
         }
 
         private void Render(object? p_Sender, EventArgs p_EventArgs) /// This will be used for render only.
         {
-            m_FPS++;
-
-            if (m_Stopwatch.ElapsedMilliseconds - m_StartTimeMillisecond > 1000)
+            if (m_Stopwatch.ElapsedMilliseconds - m_RenderStartTimeMillisecond > 1000)
             {
-                m_StartTimeMillisecond += 1000;
-                Debug.WriteLine(m_FPS);
-                m_FPS = 0;
+                m_FPSTextBlock.Text = m_FPSText;
+                m_TPSTextBlock.Text = m_TPSText;
             }
 
 
             // Clear the bitmap before updating the blobs.
-            BitmapPixelMaker.SetColor(0, 0, 0, 255);
-
-            foreach (var l_BlobCell in m_BlobCells)
-            {
-                l_BlobCell.Draw();
-            }
+            //BitmapPixelMaker.SetColor(Color.Black);
 
             // Update the Image source (Which is being displayed).
             m_Image.Source = BitmapPixelMaker.MakeBitmap(96, 96);
@@ -102,13 +134,29 @@ namespace BlobSimulator
         private void Window_Loaded(object p_Sender, RoutedEventArgs p_EventArgs)
         {
             /// Clear to black.
-            BitmapPixelMaker.SetColor(0, 0, 0, 255);
+            BitmapPixelMaker.SetColor(Color.Black);
 
             /// Add the Image to the Canvas.
             CanvasMain.Children.Add(m_Image);
 
             /// Set the Image source (Also edit the Canvas stored Image).
             m_Image.Source = BitmapPixelMaker.MakeBitmap(96, 96); /// Convert the pixel data.
+
+            /// Set the FPF TextBox into the Main Canvas.
+            Canvas.SetLeft(m_FPSTextBlock, 0);
+            Canvas.SetTop(m_FPSTextBlock, 0);
+            CanvasMain.Children.Add(m_FPSTextBlock);
+
+            /// Set the TPS (Tick Per Second) TextBox into the Main Canvas.
+            Canvas.SetLeft(m_TPSTextBlock, 0);
+            Canvas.SetTop(m_TPSTextBlock, 12);
+            CanvasMain.Children.Add(m_TPSTextBlock);
+            
+            /// Set the BlobCount TextBox into the Main Canvas.
+            Canvas.SetRight(m_BLobCountTextBlock, 0);
+            Canvas.SetTop(m_BLobCountTextBlock, 0);
+            m_BLobCountTextBlock.Text = $"BlobCount: {m_BlobCount.ToString()}".ToString();
+            CanvasMain.Children.Add(m_BLobCountTextBlock);
         }
     }
 }

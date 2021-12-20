@@ -1,23 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Color = System.Drawing.Color;
 
 namespace BlobSimulator
 {
-    // A class to represent WriteableBitmap pixels in Bgra32 format.
+    /// A class to represent WriteableBitmap pixels in Bgra32 format.
     public class BitmapPixelMaker
     {
-        // The pixel array.
+        /// The pixel array.
         private readonly byte[] m_Pixels;
 
-        // The number of bytes per row.
+        /// The number of bytes per row.
         private readonly int m_Stride;
 
-        // The bitmap's size.
+        /// The bitmap's size.
         private readonly int m_Width;
         private readonly int m_Height;
 
-        // Constructor. Width and height required.
+        /// Constructor. Width and height required.
         public BitmapPixelMaker(int p_Width, int p_Height)
         {
             // Save the width and height.
@@ -31,7 +32,7 @@ namespace BlobSimulator
             m_Stride = p_Width * 4;
         }
 
-        // Get a pixel's value.
+        /// Get a pixel's value.
         public void GetPixel(int p_X, int p_Y, out byte p_Red, out byte p_Green, out byte p_Blue, out byte p_Alpha)
         {
             int l_Index = p_Y * m_Stride + p_X * 4;
@@ -61,7 +62,7 @@ namespace BlobSimulator
             return m_Pixels[p_Y * m_Stride + p_X * 4 + 3];
         }
 
-        // Set a pixel's value.
+        /// Set a pixel's value.
         public void SetPixel(int p_X, int p_Y, byte p_Red, byte p_Green, byte p_Blue, byte p_Alpha)
         {
             int l_Index = p_Y * m_Stride + p_X * 4;
@@ -92,21 +93,21 @@ namespace BlobSimulator
             m_Pixels[p_Y * m_Stride + p_X * 4 + 3] = p_Alpha;
         }
 
-        // Set all pixels to a specific color.
-        public void SetColor(byte p_Red, byte p_Green, byte p_Blue, byte p_Alpha)
+        /// Set all pixels to a specific color.
+        public void SetColor(Color p_Color)
         {
             int l_NumBytes = m_Width * m_Height * 4;
             int l_Index = 0;
             while (l_Index < l_NumBytes)
             {
-                m_Pixels[l_Index++] = p_Blue;
-                m_Pixels[l_Index++] = p_Green;
-                m_Pixels[l_Index++] = p_Red;
-                m_Pixels[l_Index++] = p_Alpha;
+                m_Pixels[l_Index++] = p_Color.B;
+                m_Pixels[l_Index++] = p_Color.G;
+                m_Pixels[l_Index++] = p_Color.R;
+                m_Pixels[l_Index++] = p_Color.A;
             }
         }
 
-        // Use the pixel data to create a WriteableBitmap.
+        /// Use the pixel data to create a WriteableBitmap.
         public WriteableBitmap MakeBitmap(double p_DpiX, double p_DpiY)
         {
             // Create the WriteableBitmap.
@@ -114,11 +115,11 @@ namespace BlobSimulator
                 m_Width, m_Height, p_DpiX, p_DpiY,
                 PixelFormats.Bgra32, null);
 
-            // Load the pixel data.
+            /// Load the pixel data.
             Int32Rect l_Rect = new Int32Rect(0, 0, m_Width, m_Height);
             l_WritableBitmap.WritePixels(l_Rect, m_Pixels, m_Stride, 0);
 
-            // Return the bitmap.
+            /// Return the bitmap.
             return l_WritableBitmap;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BlobSimulator
 {
@@ -43,14 +42,14 @@ namespace BlobSimulator
             }
             
             
-            if (!m_BlobVectors.Any())
+            if (m_BlobVectors.Count <= 0)
             {
                 /// Adding the first BlobCell starting position.
                 m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
             }
             else
             {
-                if (Math.Abs(m_BlobVectors.Last().m_Angle - m_Angle) > 0.001)
+                if (Math.Abs(m_BlobVectors[^1].m_Angle - m_Angle) > 0.001)
                 {
                     /// Adding the new coordonate if the BlobCell shift direction.
                     m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });

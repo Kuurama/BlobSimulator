@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64056f15-e195-4915-902a-c7e0bd0f6484" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator.sln.DotSettings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/App.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/App.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/BitmapPixelMaker.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/BlobCell.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/BlobController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulator.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/Diagram.puml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/MainWindow.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/MainWindow.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator.sln.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BitmapPixelMaker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobCell.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/MainWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/MainWindow.xaml.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,15 +40,23 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d992b8cb59a04b14afab5d57ec55978c15af90/A1/XamlWriter.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d992b8cb59a04b14afab5d57ec55978c15af90/4E/XamlObjectWriter.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/233/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d992b8cb59a04b14afab5d57ec55978c15af90/84/ClrObjectRuntime.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/6E/Byte.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7c7cc88f89844adbc3a841bb7bac46983fb88/ef/be53d361/PixelFormats.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f7c7cc88f89844adbc3a841bb7bac46983fb88/8C/VisualCollection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f7c7cc88f89844adbc3a841bb7bac46983fb88/1FB/WriteableBitmap.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/3A/RuntimeType.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/81cb08854a0946928e5b0254d804429af4bd88/b7/29c9691a/WpfXamlLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/1A1/ThreadPool.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/445aeb7cc4724fad9006138d2f148517218588/BB/Dispatcher.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/445aeb7cc4724fad9006138d2f148517218588/cb/21a67331/HwndWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/1A2/ThreadPool.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/445aeb7cc4724fad9006138d2f148517218588/9D/ExceptionWrapper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/233/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/445aeb7cc4724fad9006138d2f148517218588/FF/DispatcherTimer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f7c7cc88f89844adbc3a841bb7bac46983fb88/8C/VisualCollection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/19D/Thread.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f7c7cc88f89844adbc3a841bb7bac46983fb88/3A8/SolidColorBrush.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/81cb08854a0946928e5b0254d804429af4bd88/b7/29c9691a/WpfXamlLoader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/20da24d0bff84a729a67db2dc17a322566588/9/Enumerable.SpeedOpt.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="22TpWt9CoAc7dolJXKbp8SUnQVx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -111,7 +107,7 @@
       <updated>1639871467714</updated>
       <workItem from="1639871472773" duration="8633000" />
       <workItem from="1639916430270" duration="17929000" />
-      <workItem from="1639937500071" duration="477000" />
+      <workItem from="1639937500071" duration="27239000" />
     </task>
     <servers />
   </component>
