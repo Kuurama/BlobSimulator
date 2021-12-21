@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BlobSimulator
+namespace BlobSimulator.Blob
 {
     public class BlobController
     {

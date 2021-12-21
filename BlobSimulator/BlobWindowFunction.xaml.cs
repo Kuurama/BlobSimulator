@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BlobSimulator
@@ -42,6 +43,18 @@ namespace BlobSimulator
         {
             if (p_SizeChangedEventArgs.WidthChanged) Width = p_SizeChangedEventArgs.NewSize.Height * SCREEN_RATIO;
             else Height = p_SizeChangedEventArgs.NewSize.Width / SCREEN_RATIO;
+        }
+
+
+        /// <summary>
+        ///     Terminate the program (Here on window closed event).
+        /// </summary>
+        /// <param name="p_Sender"></param>
+        /// <param name="p_E"></param>
+        private void OnWindowClosed(object p_Sender, EventArgs p_E)
+        {
+            Environment.Exit(Environment.ExitCode); // Prevent memory leak
+            //System.Windows.Application.Current.Shutdown(); // Not sure if needed
         }
     }
 }

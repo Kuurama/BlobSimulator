@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace BlobSimulator
+namespace BlobSimulator.Map
 {
     public class TrailMap
     {

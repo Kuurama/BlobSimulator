@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using BlobSimulator.Map;
 
-namespace BlobSimulator
+namespace BlobSimulator.Blob
 {
     public class BlobCell
     {
         private readonly List<BlobVectorFormat> m_BlobVectors = new List<BlobVectorFormat>();
-        private readonly byte m_Red = 255, m_Green = 255, m_Blue = 0, m_Alpha = 255;
+        private readonly Color m_Color = Color.DarkRed;
         private readonly float m_Speed;
         private float m_Angle;
         private float m_PosX;
@@ -44,7 +46,7 @@ namespace BlobSimulator
                 m_Angle = (float)(p_Random.NextDouble() * 2 * Math.PI);
             }
             
-            /*if (m_BlobVectors.Count <= 0)
+            if (m_BlobVectors.Count <= 0)
             {
                 /// Adding the first BlobCell starting position.
                 m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
@@ -54,7 +56,7 @@ namespace BlobSimulator
                 if (Math.Abs(m_BlobVectors[^1].m_Angle - m_Angle) > 0.001)
                     /// Adding the new coordonate if the BlobCell shift direction.
                     m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
-            }*/
+            }
 
             /// Replacing the old stored position with the new one.
             m_PosX = l_NewPosX;
@@ -66,7 +68,7 @@ namespace BlobSimulator
         /// </summary>
         public void Draw(TrailMap p_TrailMap)
         {
-            p_TrailMap.m_BitMap.SetPixel((int)m_PosX, (int)m_PosY, m_Red, m_Green, m_Blue, m_Alpha);
+            p_TrailMap.m_BitMap.SetPixel((int)m_PosX, (int)m_PosY, m_Color);
         }
     }
 

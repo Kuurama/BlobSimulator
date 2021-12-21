@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using BlobSimulator.Blob;
+using BlobSimulator.Map;
 
 namespace BlobSimulator
 {

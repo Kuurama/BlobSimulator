@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using BlobSimulator.Blob;
+using BlobSimulator.Map;
 
 namespace BlobSimulator
 {
@@ -70,14 +72,6 @@ namespace BlobSimulator
                 m_TPS = 0;
             }
 
-            /*foreach (var l_BlobCells in m_BlobCellsList)
-            {
-                foreach (BlobCell l_BlobCell in l_BlobCells)
-                {
-                    l_BlobCell.Move(m_Random);
-                }
-            };*/
-            
             List<Task> l_TaskArray = m_BlobCellsList.Select(p_BlobCells => Task.Factory.StartNew(() =>
             {
                 Random l_Random = new Random();
@@ -126,7 +120,7 @@ namespace BlobSimulator
         {
             while (m_ProcessMap)
             {
-                m_TrailMap.m_BitMap.EvaporateAllPixel(5);
+                m_TrailMap.m_BitMap.EvaporateAllPixel(3);
                 Thread.Sleep(m_ProcessMapLoopTimeOut);
             }
         }

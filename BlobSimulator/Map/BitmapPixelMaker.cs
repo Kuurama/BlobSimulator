@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Color = System.Drawing.Color;
 
-namespace BlobSimulator
+namespace BlobSimulator.Map
 {
     /// A class to represent WriteableBitmap pixels in Bgra32 format.
     public class BitmapPixelMaker
@@ -64,14 +64,14 @@ namespace BlobSimulator
         }
 
         /// Set a pixel's value.
-        public void SetPixel(int p_X, int p_Y, byte p_Red, byte p_Green, byte p_Blue, byte p_Alpha)
+        public void SetPixel(int p_X, int p_Y, Color p_Color)
         {
             int l_Index = p_Y * m_Stride + p_X * 4;
-            m_Pixels[l_Index++] = p_Blue;
-            m_Pixels[l_Index++] = p_Green;
-            m_Pixels[l_Index++] = p_Red;
+            m_Pixels[l_Index++] = p_Color.B;
+            m_Pixels[l_Index++] = p_Color.G;
+            m_Pixels[l_Index++] = p_Color.R;
             // ReSharper disable once RedundantAssignment
-            m_Pixels[l_Index++] = p_Alpha;
+            m_Pixels[l_Index++] = p_Color.A;
         }
 
         public void SetBlue(int p_X, int p_Y, byte p_Blue)
