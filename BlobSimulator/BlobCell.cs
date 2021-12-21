@@ -6,11 +6,11 @@ namespace BlobSimulator
     public class BlobCell
     {
         private readonly List<BlobVectorFormat> m_BlobVectors = new List<BlobVectorFormat>();
+        private readonly byte m_Red = 255, m_Green = 255, m_Blue = 0, m_Alpha = 255;
+        private readonly float m_Speed;
+        private float m_Angle;
         private float m_PosX;
         private float m_PosY;
-        private float m_Angle;
-        private float m_Speed;
-        private readonly byte m_Red = 255, m_Green = 255, m_Blue = 0, m_Alpha = 255;
 
         public BlobCell(float p_PosX, float p_PosY, float p_Angle, float p_Speed)
         {
@@ -21,7 +21,7 @@ namespace BlobSimulator
         }
 
         /// <summary>
-        /// Moves the blob.
+        ///     Moves the blob.
         /// </summary>
         public void Move(Random p_Random)
         {
@@ -34,14 +34,14 @@ namespace BlobSimulator
             float l_NewPosY = m_PosY + l_DirectionY * m_Speed;
 
             /// change the BlobCell's position and Angle if it touches the window's border.
-            if (l_NewPosX is < 0 or >= MainWindow.WIDTH || l_NewPosY is < 0 or >= MainWindow.HEIGHT )
+            if (l_NewPosX is < 0 or >= BlobSimulatorWindow.SIM_WIDTH || l_NewPosY is < 0 or >= BlobSimulatorWindow.SIM_HEIGHT)
             {
-                l_NewPosX = (float)Math.Min(MainWindow.WIDTH - 0.01, Math.Max(0, l_NewPosX));
-                l_NewPosY = (float)Math.Min(MainWindow.HEIGHT - 0.01, Math.Max(0, l_NewPosY));
+                l_NewPosX = (float)Math.Min(BlobSimulatorWindow.SIM_WIDTH - 0.01, Math.Max(0, l_NewPosX));
+                l_NewPosY = (float)Math.Min(BlobSimulatorWindow.SIM_HEIGHT - 0.01, Math.Max(0, l_NewPosY));
                 m_Angle = (float)(p_Random.NextDouble() * 2 * Math.PI);
             }
-            
-            
+
+
             if (m_BlobVectors.Count <= 0)
             {
                 /// Adding the first BlobCell starting position.
@@ -50,10 +50,8 @@ namespace BlobSimulator
             else
             {
                 if (Math.Abs(m_BlobVectors[^1].m_Angle - m_Angle) > 0.001)
-                {
                     /// Adding the new coordonate if the BlobCell shift direction.
                     m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
-                }
             }
 
             /// Replacing the old stored position with the new one.
@@ -62,22 +60,21 @@ namespace BlobSimulator
         }
 
         /// <summary>
-        /// Draws the BlobCell on the BitMap.
+        ///     Draws the BlobCell on the BitMap.
         /// </summary>
-        public void Draw()
+        public void Draw(TrailMap p_TrailMap)
         {
-            MainWindow.BitmapPixelMaker.SetPixel((int)m_PosX, (int)m_PosY, m_Red, m_Green, m_Blue, m_Alpha);
+            p_TrailMap.m_BitMap.SetPixel((int)m_PosX, (int)m_PosY, m_Red, m_Green, m_Blue, m_Alpha);
         }
     }
 
     public class BlobVectorFormat
     {
-        public float m_PosX;
-        public float m_PosY;
-
         public float m_Angle;
         public float m_DirectionX;
         public float m_DirectionY;
+        public float m_PosX;
+        public float m_PosY;
 
         /// <summary>
         ///     the number of traveled pixel before m_PosX.

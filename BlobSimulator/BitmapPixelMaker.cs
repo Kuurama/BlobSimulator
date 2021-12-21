@@ -8,6 +8,8 @@ namespace BlobSimulator
     /// A class to represent WriteableBitmap pixels in Bgra32 format.
     public class BitmapPixelMaker
     {
+        private readonly int m_Height;
+
         /// The pixel array.
         private readonly byte[] m_Pixels;
 
@@ -16,7 +18,6 @@ namespace BlobSimulator
 
         /// The bitmap's size.
         private readonly int m_Width;
-        private readonly int m_Height;
 
         /// Constructor. Width and height required.
         public BitmapPixelMaker(int p_Width, int p_Height)
@@ -106,6 +107,97 @@ namespace BlobSimulator
                 m_Pixels[l_Index++] = p_Color.A;
             }
         }
+
+        /// Blur all pixels color.
+        public void EvaporateAllPixel(int p_EvaporateStep)
+        {
+            int l_NumBytes = m_Width * m_Height * 4;
+            int l_Index = 0;
+
+            while (l_Index < l_NumBytes)
+            {
+                if (m_Pixels[l_Index] - p_EvaporateStep < 0)
+                    m_Pixels[l_Index] = 0;
+                else
+                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_EvaporateStep);
+
+
+                l_Index++;
+
+                if (m_Pixels[l_Index] - p_EvaporateStep < 0)
+                    m_Pixels[l_Index] = 0;
+                else
+                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_EvaporateStep);
+
+                l_Index++;
+
+                if (m_Pixels[l_Index] - p_EvaporateStep < 0)
+                    m_Pixels[l_Index] = 0;
+                else
+                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_EvaporateStep);
+
+                l_Index++;
+
+                /*
+               
+                    if ((m_Pixels[l_Index] - p_EvaporateStep) < 0)
+                    {
+                        m_Pixels[l_Index] = 0;
+                    }
+                    else
+                    {
+                        m_Pixels[l_Index] = m_Pixels[l_Index];
+                    }
+                */
+
+                l_Index++;
+            }
+        }
+
+        public void BlurAllPixel(int p_BlurStep)
+        {
+            int l_NumBytes = m_Width * m_Height * 4;
+            int l_Index = 0;
+
+            while (l_Index < l_NumBytes)
+            {
+                if (l_Index - 4 * m_Height >= 0 || l_Index - 4 * m_Height <= m_Height) m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_BlurStep);
+
+
+                l_Index++;
+
+                if (m_Pixels[l_Index] - p_BlurStep < 0)
+                    m_Pixels[l_Index] = 0;
+                else
+                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_BlurStep);
+
+
+                l_Index++;
+
+                if (m_Pixels[l_Index] - p_BlurStep < 0)
+                    m_Pixels[l_Index] = 0;
+                else
+                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_BlurStep);
+
+
+                l_Index++;
+
+                /*
+                
+                    if ((m_Pixels[l_Index] - p_EvaporateStep) < 0)
+                    {
+                        m_Pixels[l_Index] = 0;
+                    }
+                    else
+                    {
+                        m_Pixels[l_Index] = m_Pixels[l_Index];
+                    }
+                */
+
+                l_Index++;
+            }
+        }
+
 
         /// Use the pixel data to create a WriteableBitmap.
         public WriteableBitmap MakeBitmap(double p_DpiX, double p_DpiY)
