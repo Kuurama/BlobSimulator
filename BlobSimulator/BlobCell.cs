@@ -33,7 +33,7 @@ namespace BlobSimulator
             float l_NewPosX = m_PosX + l_DirectionX * m_Speed;
             float l_NewPosY = m_PosY + l_DirectionY * m_Speed;
 
-            /// change the BlobCell's position and Angle if it touches the window's border.
+            /// change the BlobCell's position and Angle if it touches the Simulation's window border.
             if (l_NewPosX is < 0 or >= BlobSimulatorWindow.SIM_WIDTH || l_NewPosY is < 0 or >= BlobSimulatorWindow.SIM_HEIGHT)
             {
                 l_NewPosX = (float)Math.Min(BlobSimulatorWindow.SIM_WIDTH - 0.01, Math.Max(0, l_NewPosX));

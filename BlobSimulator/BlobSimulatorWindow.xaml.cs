@@ -19,7 +19,7 @@ namespace BlobSimulator
 
             /// Needed Setup Method ///
             m_Random = new Random();
-            m_TrailMap = new TrailMap(MIN_WIDTH * SCALE_MULTIPLIER, MIN_HEIGHT * SCALE_MULTIPLIER);
+            m_TrailMap = new TrailMap(SIM_WIDTH, SIM_HEIGHT);
             m_Stopwatch = new Stopwatch();
             m_Stopwatch.Start();
             ///////////////////////////
@@ -33,9 +33,9 @@ namespace BlobSimulator
             l_UpdateTimer.Interval = TimeSpan.FromTicks(UPDATE_TPS); /// Sets m_RenderTimer.Tick to loop at UPDATE_TPS.
             l_UpdateTimer.Tick += Update;
 
-            m_BlobCount = 500000;
-            m_BlobListCount = 8; /// By extension => the number of Thread.
-            m_BlobSpeed = 10.0f;
+            m_BlobCount = 50000;
+            m_BlobListCount = 1; /// By extension => the number of Thread. Warning: currently this option causes bugs with blob stopping moving.
+            m_BlobSpeed = 1.0f;
             m_BlobCellsList = new List<List<BlobCell>>();
 
             /// Sets randomly the blob's position.
@@ -54,12 +54,12 @@ namespace BlobSimulator
             l_UpdateTimer.Start();
 
             m_ProcessMap = true;
-            m_ProcessMapLoopTimeOut = 10;
+            m_ProcessMapLoopTimeOut = 1;
             Thread l_ProcessTrailMapThread = new Thread(ProcessTrailMap);
             l_ProcessTrailMapThread.Start();
         }
 
-        private void Update(object? sender, EventArgs eventArgs)
+        private void Update(object? p_Sender, EventArgs p_EventArgs)
         {
             m_TPS++;
             if (m_Stopwatch.ElapsedMilliseconds - m_UpdateStartTimeMillisecond > 1000)
@@ -70,9 +70,17 @@ namespace BlobSimulator
                 m_TPS = 0;
             }
 
-            List<Task> l_TaskArray = m_BlobCellsList.Select(blobCells => Task.Factory.StartNew(() =>
+            /*foreach (var l_BlobCells in m_BlobCellsList)
             {
-                foreach (BlobCell l_BlobCell in blobCells)
+                foreach (BlobCell l_BlobCell in l_BlobCells)
+                {
+                    l_BlobCell.Move(m_Random);
+                }
+            };*/
+            
+            List<Task> l_TaskArray = m_BlobCellsList.Select(p_BlobCells => Task.Factory.StartNew(() =>
+            {
+                foreach (BlobCell l_BlobCell in p_BlobCells)
                 {
                     l_BlobCell.Move(m_Random);
                 }
@@ -81,7 +89,7 @@ namespace BlobSimulator
             Task.WaitAll(l_TaskArray.ToArray());
         }
 
-        private void Render(object? sender, EventArgs eventArgs)
+        private void Render(object? p_Sender, EventArgs p_EventArgs)
         {
             m_FPS++;
             if (m_Stopwatch.ElapsedMilliseconds - m_RenderStartTimeMillisecond > 1000)
@@ -90,10 +98,18 @@ namespace BlobSimulator
                 m_FPSTextBlock.Text = $"FPS: {m_FPS}";
                 m_FPS = 0;
             }
-
-            List<Task> l_TaskArray = m_BlobCellsList.Select(blobCells => Task.Factory.StartNew(() =>
+            
+            /*foreach (var l_BlobCells in m_BlobCellsList)
+            {
+                foreach (BlobCell l_BlobCell in l_BlobCells)
                 {
-                    foreach (BlobCell l_BlobCell in blobCells)
+                    l_BlobCell.Draw(m_TrailMap);
+                }
+            };*/
+            
+            List<Task> l_TaskArray = m_BlobCellsList.Select(p_BlobCells => Task.Factory.StartNew(() =>
+                {
+                    foreach (BlobCell l_BlobCell in p_BlobCells)
                     {
                         l_BlobCell.Draw(m_TrailMap);
                     }

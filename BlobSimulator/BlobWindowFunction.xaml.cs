@@ -36,12 +36,12 @@ namespace BlobSimulator
         /// <summary>
         ///     Makes a window (Here BlobSimulatorWindow) keeps the 16/9 ratio on resize.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="sizeChangedEventArgs"></param>
-        private void OnRenderSizeChanged(object sender, SizeChangedEventArgs sizeChangedEventArgs)
+        /// <param name="p_Sender"></param>
+        /// <param name="p_SizeChangedEventArgs"></param>
+        private void OnRenderSizeChanged(object p_Sender, SizeChangedEventArgs p_SizeChangedEventArgs)
         {
-            if (sizeChangedEventArgs.WidthChanged) Width = sizeChangedEventArgs.NewSize.Height * SCREEN_RATIO;
-            else Height = sizeChangedEventArgs.NewSize.Width / SCREEN_RATIO;
+            if (p_SizeChangedEventArgs.WidthChanged) Width = p_SizeChangedEventArgs.NewSize.Height * SCREEN_RATIO;
+            else Height = p_SizeChangedEventArgs.NewSize.Width / SCREEN_RATIO;
         }
     }
 }
