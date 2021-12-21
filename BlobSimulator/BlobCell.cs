@@ -25,6 +25,9 @@ namespace BlobSimulator
         /// </summary>
         public void Move(Random p_Random)
         {
+            const int WIDTH = BlobSimulatorWindow.SIM_WIDTH;
+            const int HEIGHT = BlobSimulatorWindow.SIM_HEIGHT;
+            
             /// Calculate the Direction depending on the BlobCell's Angle.
             float l_DirectionX = (float)Math.Cos(m_Angle);
             float l_DirectionY = (float)Math.Sin(m_Angle);
@@ -34,15 +37,14 @@ namespace BlobSimulator
             float l_NewPosY = m_PosY + l_DirectionY * m_Speed;
 
             /// change the BlobCell's position and Angle if it touches the Simulation's window border.
-            if (l_NewPosX is < 0 or >= BlobSimulatorWindow.SIM_WIDTH || l_NewPosY is < 0 or >= BlobSimulatorWindow.SIM_HEIGHT)
+            if (l_NewPosX is < 0 or >= WIDTH || l_NewPosY is < 0 or >= HEIGHT)
             {
-                l_NewPosX = (float)Math.Min(BlobSimulatorWindow.SIM_WIDTH - 0.01, Math.Max(0, l_NewPosX));
-                l_NewPosY = (float)Math.Min(BlobSimulatorWindow.SIM_HEIGHT - 0.01, Math.Max(0, l_NewPosY));
+                l_NewPosX = (float)Math.Min(WIDTH - 0.01, Math.Max(0, l_NewPosX));
+                l_NewPosY = (float)Math.Min(HEIGHT - 0.01, Math.Max(0, l_NewPosY));
                 m_Angle = (float)(p_Random.NextDouble() * 2 * Math.PI);
             }
-
-
-            if (m_BlobVectors.Count <= 0)
+            
+            /*if (m_BlobVectors.Count <= 0)
             {
                 /// Adding the first BlobCell starting position.
                 m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
@@ -52,7 +54,7 @@ namespace BlobSimulator
                 if (Math.Abs(m_BlobVectors[^1].m_Angle - m_Angle) > 0.001)
                     /// Adding the new coordonate if the BlobCell shift direction.
                     m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
-            }
+            }*/
 
             /// Replacing the old stored position with the new one.
             m_PosX = l_NewPosX;

@@ -33,8 +33,8 @@ namespace BlobSimulator
             l_UpdateTimer.Interval = TimeSpan.FromTicks(UPDATE_TPS); /// Sets m_RenderTimer.Tick to loop at UPDATE_TPS.
             l_UpdateTimer.Tick += Update;
 
-            m_BlobCount = 50000;
-            m_BlobListCount = 1; /// By extension => the number of Thread. Warning: currently this option causes bugs with blob stopping moving.
+            m_BlobCount = 1000000;
+            m_BlobListCount = 30; /// By extension => the number of Thread. Apparently with 5Million BlobCell, 30 Seems like a good value.
             m_BlobSpeed = 1.0f;
             m_BlobCellsList = new List<List<BlobCell>>();
 
@@ -54,7 +54,7 @@ namespace BlobSimulator
             l_UpdateTimer.Start();
 
             m_ProcessMap = true;
-            m_ProcessMapLoopTimeOut = 1;
+            m_ProcessMapLoopTimeOut = 2;
             Thread l_ProcessTrailMapThread = new Thread(ProcessTrailMap);
             l_ProcessTrailMapThread.Start();
         }
@@ -80,9 +80,10 @@ namespace BlobSimulator
             
             List<Task> l_TaskArray = m_BlobCellsList.Select(p_BlobCells => Task.Factory.StartNew(() =>
             {
+                Random l_Random = new Random();
                 foreach (BlobCell l_BlobCell in p_BlobCells)
                 {
-                    l_BlobCell.Move(m_Random);
+                    l_BlobCell.Move(l_Random);
                 }
             })).ToList();
             
