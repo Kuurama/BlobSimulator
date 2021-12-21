@@ -35,9 +35,9 @@ namespace BlobSimulator
             l_UpdateTimer.Interval = TimeSpan.FromTicks(UPDATE_TPS); /// Sets m_RenderTimer.Tick to loop at UPDATE_TPS.
             l_UpdateTimer.Tick += Update;
 
-            m_BlobCount = 1000000;
+            m_BlobCount = 50;
             m_BlobListCount = 30; /// By extension => the number of Thread. Apparently with 5Million BlobCell, 30 Seems like a good value.
-            m_BlobSpeed = 1.0f;
+            m_BlobSpeed = 0.00f;
             m_BlobCellsList = new List<List<BlobCell>>();
 
             /// Sets randomly the blob's position.
@@ -120,7 +120,8 @@ namespace BlobSimulator
         {
             while (m_ProcessMap)
             {
-                m_TrailMap.m_BitMap.EvaporateAllPixel(3);
+                m_TrailMap.m_BitMap.EvaporateAllPixel(5);
+                m_TrailMap.m_BitMap.BlurAllPixel();
                 Thread.Sleep(m_ProcessMapLoopTimeOut);
             }
         }

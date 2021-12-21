@@ -8,7 +8,7 @@ namespace BlobSimulator.Blob
     public class BlobCell
     {
         private readonly List<BlobVectorFormat> m_BlobVectors = new List<BlobVectorFormat>();
-        private readonly Color m_Color = Color.DarkRed;
+        private readonly Color m_Color = Color.GreenYellow;
         private readonly float m_Speed;
         private float m_Angle;
         private float m_PosX;

@@ -108,7 +108,7 @@ namespace BlobSimulator.Map
             }
         }
 
-        /// Blur all pixels color.
+        /// Lower all pixels color except the Alpha value.
         public void EvaporateAllPixel(int p_EvaporateStep)
         {
             int l_NumBytes = m_Width * m_Height * 4;
@@ -154,45 +154,285 @@ namespace BlobSimulator.Map
             }
         }
 
-        public void BlurAllPixel(int p_BlurStep)
+        /// <summary>
+        /// Blur each pixel depending on it's neighborhoods.
+        /// </summary>
+        public void BlurAllPixel()
         {
             int l_NumBytes = m_Width * m_Height * 4;
             int l_Index = 0;
 
             while (l_Index < l_NumBytes)
             {
-                if (l_Index - 4 * m_Height >= 0 || l_Index - 4 * m_Height <= m_Height) m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_BlurStep);
-
-
-                l_Index++;
-
-                if (m_Pixels[l_Index] - p_BlurStep < 0)
-                    m_Pixels[l_Index] = 0;
-                else
-                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_BlurStep);
-
-
-                l_Index++;
-
-                if (m_Pixels[l_Index] - p_BlurStep < 0)
-                    m_Pixels[l_Index] = 0;
-                else
-                    m_Pixels[l_Index] = (byte)(m_Pixels[l_Index] - p_BlurStep);
-
-
-                l_Index++;
-
-                /*
                 
-                    if ((m_Pixels[l_Index] - p_EvaporateStep) < 0)
-                    {
-                        m_Pixels[l_Index] = 0;
-                    }
-                    else
-                    {
-                        m_Pixels[l_Index] = m_Pixels[l_Index];
-                    }
-                */
+                int l_PreviousHeightPixel = l_Index - 4 * m_Width;
+                int l_PreviousHeightPixelRight = l_Index - 4 * (m_Width - 1);
+                int l_PreviousHeightPixelLeft = l_Index - 4 * (m_Width + 1);
+                int l_PreviousPixel = l_Index - 4;
+                int l_CurrentPixelValue = m_Pixels[l_Index];
+                int l_NextPixel = l_Index + 4;
+                int l_NextHeightPixel = l_Index + 4 * m_Width;
+                int l_NextHeightPixelRight = l_Index + 4 * (m_Width - 1);
+                int l_NextHeightPixelLeft = l_Index + 4 * (m_Width + 1);
+                int l_PixelSum = l_CurrentPixelValue;
+                int l_Count = 1;
+                
+                
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
+                    l_Count++;
+                }
+
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
+                    l_Count++;
+                }
+                
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousPixel];
+                    l_Count++;
+                }
+
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
+                    l_Count++;
+                }
+
+                if (l_Count != 1)
+                {
+                    m_Pixels[l_Index] = (byte)(l_PixelSum / l_Count);
+                }
+
+                l_PreviousHeightPixel = l_Index - 4 * m_Width;
+                l_PreviousHeightPixelRight = l_Index - 4 * (m_Width - 1);
+                l_PreviousHeightPixelLeft = l_Index - 4 * (m_Width + 1);
+                l_PreviousPixel = l_Index - 4;
+                l_CurrentPixelValue = m_Pixels[l_Index];
+                l_NextPixel = l_Index + 4; 
+                l_NextHeightPixel = l_Index + 4 * m_Width;
+                l_NextHeightPixelRight = l_Index + 4 * (m_Width - 1);
+                l_NextHeightPixelLeft = l_Index + 4 * (m_Width + 1);
+                l_PixelSum = l_CurrentPixelValue;
+                l_Count = 1;
+                
+                
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
+                    l_Count++;
+                }
+
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
+                    l_Count++;
+                }
+                
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousPixel];
+                    l_Count++;
+                }
+
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
+                    l_Count++;
+                }
+
+                if (l_Count != 1)
+                {
+                    m_Pixels[l_Index] = (byte)(l_PixelSum / l_Count);
+                }
+
+
+                l_Index++;
+
+                l_PreviousHeightPixel = l_Index - 4 * m_Width;
+                l_PreviousHeightPixelRight = l_Index - 4 * (m_Width - 1);
+                l_PreviousHeightPixelLeft = l_Index - 4 * (m_Width + 1);
+                l_PreviousPixel = l_Index - 4;
+                l_CurrentPixelValue = m_Pixels[l_Index];
+                l_NextPixel = l_Index + 4; 
+                l_NextHeightPixel = l_Index + 4 * m_Width;
+                l_NextHeightPixelRight = l_Index + 4 * (m_Width - 1);
+                l_NextHeightPixelLeft = l_Index + 4 * (m_Width + 1);
+                l_PixelSum = l_CurrentPixelValue;
+                l_Count = 1;
+                
+                
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
+                    l_Count++;
+                }
+
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
+                    l_Count++;
+                }
+                
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousPixel];
+                    l_Count++;
+                }
+
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
+                    l_Count++;
+                }
+
+                if (l_Count != 1)
+                {
+                    m_Pixels[l_Index] = (byte)(l_PixelSum / l_Count);
+                }
+
+                l_Index++;
+
+                /*l_PreviousHeightPixel = l_Index - 4 * m_Width;
+                l_PreviousHeightPixelRight = l_Index - 4 * (m_Width - 1);
+                l_PreviousHeightPixelLeft = l_Index - 4 * (m_Width + 1);
+                l_PreviousPixel = l_Index - 4;
+                l_CurrentPixelValue = m_Pixels[l_Index];
+                l_NextPixel = l_Index + 4; 
+                l_NextHeightPixel = l_Index + 4 * m_Width;
+                l_NextHeightPixelRight = l_Index + 4 * (m_Width - 1);
+                l_NextHeightPixelLeft = l_Index + 4 * (m_Width + 1);
+                l_PixelSum = l_CurrentPixelValue;
+                l_Count = 1;
+                
+                
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
+                    l_Count++;
+                }
+
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
+                    l_Count++;
+                }
+                
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_PreviousPixel];
+                    l_Count++;
+                }
+
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixel];
+                    l_Count++;
+                }
+                
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
+                {
+                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
+                    l_Count++;
+                }
+
+                if (l_Count != 1)
+                {
+                    m_Pixels[l_Index] = (byte)(l_PixelSum / l_Count);
+                }*/
 
                 l_Index++;
             }

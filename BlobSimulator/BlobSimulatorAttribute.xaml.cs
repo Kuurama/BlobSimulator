@@ -16,8 +16,8 @@ namespace BlobSimulator
     {
         /// Set the screen minimum Width and Height, then the Scale Multiplier => By how much you multiply them to set the BlobSimulatorWindow Size.
         private const int MIN_WIDTH = 256, MIN_HEIGHT = 144, SCALE_MULTIPLIER = 5;
-
-        public const int SIM_WIDTH = 1280, SIM_HEIGHT = 720;
+        private const float SIM_SCALE_MULTIPLIER = 0.2f;
+        public const int SIM_WIDTH = (int)(MIN_WIDTH*SIM_SCALE_MULTIPLIER), SIM_HEIGHT = (int)(MIN_HEIGHT*SIM_SCALE_MULTIPLIER);
         private const double SCREEN_RATIO = (double)MIN_WIDTH / MIN_HEIGHT;
 
         /// Basically how fast the program *could*/*will* run, set the Update and Render loops tick/sec.

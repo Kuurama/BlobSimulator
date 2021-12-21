@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64056f15-e195-4915-902a-c7e0bd0f6484" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/TrailMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/TrailMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +122,7 @@
       <workItem from="1640050589331" duration="5716000" />
       <workItem from="1640056424928" duration="2177000" />
       <workItem from="1640058677127" duration="888000" />
-      <workItem from="1640100340218" duration="6630000" />
+      <workItem from="1640100340218" duration="16108000" />
     </task>
     <servers />
   </component>
