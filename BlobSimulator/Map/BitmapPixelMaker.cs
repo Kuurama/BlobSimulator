@@ -35,13 +35,15 @@ namespace BlobSimulator.Map
         }
 
         /// Get a pixel's value.
-        public void GetPixel(int p_X, int p_Y, out byte p_Red, out byte p_Green, out byte p_Blue, out byte p_Alpha)
+        public Color GetPixel(int p_X, int p_Y)
         {
             int l_Index = p_Y * m_Stride + p_X * 4;
-            p_Blue = m_Pixels[l_Index++];
-            p_Green = m_Pixels[l_Index++];
-            p_Red = m_Pixels[l_Index++];
-            p_Alpha = m_Pixels[l_Index];
+            byte l_B = m_Pixels[l_Index++];
+            byte l_G = m_Pixels[l_Index++];
+            byte l_R = m_Pixels[l_Index++];
+            // ReSharper disable once RedundantAssignment
+            byte l_A = m_Pixels[l_Index++];
+            return Color.FromArgb(blue:l_B, green: l_G, red: l_R, alpha: l_A);
         }
 
         public byte GetBlue(int p_X, int p_Y)

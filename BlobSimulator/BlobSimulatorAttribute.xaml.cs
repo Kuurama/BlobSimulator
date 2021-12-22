@@ -16,7 +16,7 @@ namespace BlobSimulator
     {
         /// Set the screen minimum Width and Height, then the Scale Multiplier => By how much you multiply them to set the BlobSimulatorWindow Size.
         private const int MIN_WIDTH = 256, MIN_HEIGHT = 144, SCALE_MULTIPLIER = 5;
-        private const float SIM_SCALE_MULTIPLIER = 1f;
+        private const float SIM_SCALE_MULTIPLIER = 5f;
         public const int SIM_WIDTH = (int)(MIN_WIDTH*SIM_SCALE_MULTIPLIER), SIM_HEIGHT = (int)(MIN_HEIGHT*SIM_SCALE_MULTIPLIER);
         private const double SCREEN_RATIO = (double)MIN_WIDTH / MIN_HEIGHT;
 
@@ -27,7 +27,7 @@ namespace BlobSimulator
         private readonly List<List<BlobCell>> m_BlobCellsList;
 
         private readonly int m_BlobCount, m_BlobListCount;
-        private readonly float m_BlobSpeed;
+        private readonly float m_BlobSpeed, m_BlobTurnSpeed;
         private readonly bool m_ProcessMap = true;
         private readonly int m_ProcessMapLoopTimeOut;
 

@@ -35,19 +35,20 @@ namespace BlobSimulator
             l_UpdateTimer.Interval = TimeSpan.FromTicks(UPDATE_TPS); /// Sets m_RenderTimer.Tick to loop at UPDATE_TPS.
             l_UpdateTimer.Tick += Update;
 
-            m_BlobCount = 25;
+            m_BlobCount = 10000;
             m_BlobListCount = 30; /// By extension => the number of Thread. Apparently with 5Million BlobCell, 30 Seems like a good value.
-            m_BlobSpeed = 0.50f;
+            m_BlobSpeed = 1.00f;
+            m_BlobTurnSpeed = 0.4f;
             m_BlobCellsList = new List<List<BlobCell>>();
 
             /// Sets randomly the blob's position.
-            int l_PosX = m_Random.Next(0, SIM_WIDTH);
-            int l_PosY = m_Random.Next(0, SIM_HEIGHT);
+            //int l_PosX = m_Random.Next(0, SIM_WIDTH);
+            //int l_PosY = m_Random.Next(0, SIM_HEIGHT);
 
             List<int> l_ListBlobNeededPerList = StaticFunction.NumberSplit(m_BlobCount, m_BlobListCount); /// Returns a list of Integers representing the number of Blob per BlobList needed.
 
             /// Instanciating the blobs and adding each BlobCellLists into ListBlobCellsList.
-            foreach (int l_BlobNeededPerList in l_ListBlobNeededPerList) m_BlobCellsList.Add(BlobController.CreateBlobGroup(l_BlobNeededPerList, l_PosX, l_PosY, m_BlobSpeed, m_Random));
+            foreach (int l_BlobNeededPerList in l_ListBlobNeededPerList) m_BlobCellsList.Add(BlobController.CreateBlobGroup(l_BlobNeededPerList, m_Random.Next(0, SIM_WIDTH), m_Random.Next(0, SIM_HEIGHT), m_BlobSpeed, m_BlobTurnSpeed, m_Random));
 
             /// Starts the Update and Render Loop.
             m_RenderStartTimeMillisecond = m_Stopwatch.ElapsedMilliseconds;
@@ -77,6 +78,7 @@ namespace BlobSimulator
                 Random l_Random = new Random();
                 foreach (BlobCell l_BlobCell in p_BlobCells)
                 {
+                    l_BlobCell.FollowTrail(m_TrailMap, l_Random);
                     l_BlobCell.Move(l_Random);
                 }
             })).ToList();
@@ -120,7 +122,7 @@ namespace BlobSimulator
         {
             while (m_ProcessMap)
             {
-                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(0.1f, 0.2f);
+                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(10f, 0.2f);
                 Thread.Sleep(m_ProcessMapLoopTimeOut);
             }
         }

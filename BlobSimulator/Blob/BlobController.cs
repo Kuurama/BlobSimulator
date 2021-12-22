@@ -5,7 +5,7 @@ namespace BlobSimulator.Blob
 {
     public class BlobController
     {
-        public static List<BlobCell> CreateBlobGroup(int p_BlobCellCount, int p_PosX, int p_PosY, float p_Speed, Random p_Random)
+        public static List<BlobCell> CreateBlobGroup(int p_BlobCellCount, int p_PosX, int p_PosY, float p_Speed, float p_TurnSpeed, Random p_Random)
         {
             List<BlobCell> l_BlobCells = new List<BlobCell>();
 
@@ -20,7 +20,7 @@ namespace BlobSimulator.Blob
                     l_Vy = p_Random.Next(0, 2);
                 } while (l_Vx == 0 && l_Vy == 0);
 
-                l_BlobCells.Add(new BlobCell(p_PosX, p_PosY, (float)(p_Random.NextDouble() * 2 * Math.PI), p_Speed));
+                l_BlobCells.Add(new BlobCell(p_PosX, p_PosY, (float)(p_Random.NextDouble() * 2 * Math.PI), p_Speed, p_TurnSpeed));
             }
 
             return l_BlobCells;
