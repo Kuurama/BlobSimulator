@@ -10,7 +10,6 @@
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +76,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.47586486" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.47562298" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -124,6 +123,7 @@
       <workItem from="1640058677127" duration="888000" />
       <workItem from="1640100340218" duration="16108000" />
       <workItem from="1640134129553" duration="11721000" />
+      <workItem from="1640186247754" duration="12724000" />
     </task>
     <servers />
   </component>

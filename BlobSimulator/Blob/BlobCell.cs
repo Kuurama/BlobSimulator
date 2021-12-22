@@ -7,22 +7,26 @@ namespace BlobSimulator.Blob
     public class BlobCell
     {
         //private readonly List<BlobVectorFormat> m_BlobVectors = new List<BlobVectorFormat>();
-        private readonly Color m_Color = Color.DeepSkyBlue;
+        private readonly Color m_Color;
         private readonly float m_Speed, m_TurnSpeed;
         private float m_Angle;
-        private float m_SensorAngleSpacing = 45f;
-        private int m_SensorSize = 2, m_SensorOffsetDst = 3;
+        private readonly float m_SensorAngleSpacing;
+        private readonly int m_SensorSize, m_SensorOffsetDst;
 
         private float m_PosX;
         private float m_PosY;
 
-        public BlobCell(float p_PosX, float p_PosY, float p_Angle, float p_Speed, float p_TurnSpeed)
+        public BlobCell(float p_PosX, float p_PosY, float p_Angle, float p_Speed, float p_TurnSpeed, float p_SensorAngleSpacing, int p_SensorSize, int p_SensorOffsetDst, Color p_Color)
         {
             m_PosX = p_PosX;
             m_PosY = p_PosY;
             m_Angle = p_Angle;
             m_Speed = p_Speed;
             m_TurnSpeed = p_TurnSpeed;
+            m_SensorAngleSpacing = p_SensorAngleSpacing;
+            m_SensorSize = p_SensorSize;
+            m_SensorOffsetDst = p_SensorOffsetDst;
+            m_Color = p_Color;
         }
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace BlobSimulator.Blob
             float l_WeightRight = Sense(p_TrailMap, -m_SensorAngleSpacing);
 
             float l_RandomSteerStrength = (float)p_Random.NextDouble();
-
+            //float l_RandomSteerStrength = 0;
             if (l_WeightForward > l_WeightLeft && l_WeightForward > l_WeightRight)
             {
                 m_Angle += 0;

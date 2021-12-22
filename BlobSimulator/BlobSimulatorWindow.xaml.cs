@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,20 +36,23 @@ namespace BlobSimulator
             l_UpdateTimer.Interval = TimeSpan.FromTicks(UPDATE_TPS); /// Sets m_RenderTimer.Tick to loop at UPDATE_TPS.
             l_UpdateTimer.Tick += Update;
 
-            m_BlobCount = 10000;
+            m_BlobCount = 130000;
             m_BlobListCount = 30; /// By extension => the number of Thread. Apparently with 5Million BlobCell, 30 Seems like a good value.
-            m_BlobSpeed = 1.00f;
-            m_BlobTurnSpeed = 0.4f;
+            const float BLOB_SPEED = 1.00f;
+            const float BLOB_TURN_SPEED = 0.4f;
+            const float SENSOR_ANGLE_SPACING = 45f;
+            const int SENSOR_SIZE = 1, SENSOR_OFFSET_DST = 20;
+            const int SPAWN_RADIUS = 12;
             m_BlobCellsList = new List<List<BlobCell>>();
 
             /// Sets randomly the blob's position.
-            //int l_PosX = m_Random.Next(0, SIM_WIDTH);
-            //int l_PosY = m_Random.Next(0, SIM_HEIGHT);
+            const int POS_X = SIM_WIDTH/2;
+            const int POS_Y = SIM_HEIGHT/2;
 
             List<int> l_ListBlobNeededPerList = StaticFunction.NumberSplit(m_BlobCount, m_BlobListCount); /// Returns a list of Integers representing the number of Blob per BlobList needed.
 
             /// Instanciating the blobs and adding each BlobCellLists into ListBlobCellsList.
-            foreach (int l_BlobNeededPerList in l_ListBlobNeededPerList) m_BlobCellsList.Add(BlobController.CreateBlobGroup(l_BlobNeededPerList, m_Random.Next(0, SIM_WIDTH), m_Random.Next(0, SIM_HEIGHT), m_BlobSpeed, m_BlobTurnSpeed, m_Random));
+            foreach (int l_BlobNeededPerList in l_ListBlobNeededPerList) m_BlobCellsList.Add(BlobController.CreateBlobGroup(l_BlobNeededPerList, POS_X, POS_Y, SPAWN_RADIUS,BLOB_SPEED, BLOB_TURN_SPEED, SENSOR_ANGLE_SPACING,SENSOR_SIZE, SENSOR_OFFSET_DST, Color.DeepSkyBlue, m_Random));
 
             /// Starts the Update and Render Loop.
             m_RenderStartTimeMillisecond = m_Stopwatch.ElapsedMilliseconds;
@@ -122,7 +126,7 @@ namespace BlobSimulator
         {
             while (m_ProcessMap)
             {
-                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(10f, 0.2f);
+                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(5f, 0.2f);
                 Thread.Sleep(m_ProcessMapLoopTimeOut);
             }
         }
