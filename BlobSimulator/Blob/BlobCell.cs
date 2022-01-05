@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using BlobSimulator.Map;
 
 namespace BlobSimulator.Blob
@@ -138,18 +137,13 @@ namespace BlobSimulator.Blob
                 int l_PosX = (int)(m_PosX + l_SensorDirX * (l_I + m_SensorOffsetDst));
                 int l_PosY = (int)(m_PosY + l_SensorDirY * (l_I + m_SensorOffsetDst));
 
-                if (l_PosX < 0 || l_PosX >= BlobSimulatorWindow.SIM_WIDTH
-                               || l_PosY < 0 || l_PosY >= BlobSimulatorWindow.SIM_HEIGHT)
+                if (l_PosX is < 0 or >= BlobSimulatorWindow.SIM_WIDTH || l_PosY is < 0 or >= BlobSimulatorWindow.SIM_HEIGHT)
                     continue;
 
                 Color l_Color = p_TrailMap.m_BitMap.GetPixel(l_PosX, l_PosY);
-                for (int l_X = 0; l_X < BlobSimulatorWindow.BlockListColor.Length; l_X++)
-                {
-                    if (BlobSimulatorWindow.BlockListColor[l_X].B - l_Color.B <= 10 && BlobSimulatorWindow.BlockListColor[l_X].G - l_Color.G <= 10 && BlobSimulatorWindow.BlockListColor[l_X].R - l_Color.R <= 10)
-                    {
+                for (int l_X = 0; l_X < BlobSimulatorWindow.m_BlockListColor?.Length; l_X++)
+                    if (BlobSimulatorWindow.m_BlockListColor[l_X].B - l_Color.B <= 10 && BlobSimulatorWindow.m_BlockListColor[l_X].G - l_Color.G <= 10 && BlobSimulatorWindow.m_BlockListColor[l_X].R - l_Color.R <= 10)
                         return int.MinValue;
-                    }
-                }
 
                 l_Sum += (l_Color.B + l_Color.G + l_Color.R) / 3f;
             }

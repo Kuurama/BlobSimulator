@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
@@ -55,16 +54,17 @@ namespace BlobSimulator
 
             m_BlobCells = new BlobCell[m_BlobCount];
             BlobController.CreateBlobGroup(m_BlobCells, POS_X, POS_Y, SPAWN_RADIUS, BLOB_SPEED, BLOB_TURN_SPEED, SENSOR_ANGLE_SPACING, SENSOR_SIZE, SENSOR_OFFSET_DST, l_BlobColor, SAVE_DIRECTION, m_Random);
-            
+
             m_SaltCount = 200;
             m_Salts = new Salt.Salt[m_SaltCount];
             Color l_SaltColor = Color.White;
-            BlockListColor = new Color[1];g
-            BlockListColor[0] = l_SaltColor;
+            m_BlockListColor = new Color[1];
+
+            m_BlockListColor[0] = l_SaltColor;
 
             int l_MaxSaltSize = 20;
-            SaltController.CreateSaltGroup(m_Salts, 0,  SIM_WIDTH, 0, SIM_HEIGHT, l_MaxSaltSize, Color.White, m_Random);
-            
+            SaltController.CreateSaltGroup(m_Salts, 0, SIM_WIDTH, 0, SIM_HEIGHT, l_MaxSaltSize, Color.White, m_Random);
+
             /// Starts the Render Loop.
             l_RenderTimer.Start();
 
@@ -86,11 +86,8 @@ namespace BlobSimulator
             {
                 m_TPS++;
 
-                Parallel.ForEach(m_Salts, new ParallelOptions { MaxDegreeOfParallelism = 16 }, p_Salt =>
-                {
-                    p_Salt.Draw(m_TrailMap);
-                });
-                
+                Parallel.ForEach(m_Salts, new ParallelOptions { MaxDegreeOfParallelism = 16 }, p_Salt => { p_Salt.Draw(m_TrailMap); });
+
                 Parallel.ForEach(m_BlobCells, new ParallelOptions { MaxDegreeOfParallelism = 24 }, p_BlobCell =>
                 {
                     Random? l_Random = m_TLSRandom.Value;
@@ -100,13 +97,9 @@ namespace BlobSimulator
                 });
 
                 if (!m_UncappedTPS)
-                {
                     Thread.Sleep(SIM_TPS);
-                }
                 else
-                {
                     Thread.Yield(); /// Doing this would uncap fps and give better performances.
-                }
             }
             // ReSharper disable once FunctionNeverReturns
         }

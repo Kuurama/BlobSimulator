@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,16 +23,14 @@ namespace BlobSimulator
 
         /// Basically how fast the program *could*/*will* run, set the Update and Render loops tick/sec.
         private const int SIM_FPS = 100000;
+
         private const int SIM_TPS = 10;
-        private readonly bool m_UncappedTPS;
+        public static Color[]? m_BlockListColor;
 
         /// Important Variable.
         private readonly BlobCell[] m_BlobCells;
-        private readonly Salt.Salt[] m_Salts;
-        public static Color[] BlockListColor;
 
         private readonly int m_BlobCount;
-        private readonly int m_SaltCount;
 
         private readonly TextBlock m_BLobCountTextBlock = new TextBlock
         {
@@ -63,6 +60,8 @@ namespace BlobSimulator
         private readonly int m_ProcessMapLoopTimeOut;
 
         private readonly Random m_Random;
+        private readonly int m_SaltCount;
+        private readonly Salt.Salt[] m_Salts;
         private readonly Stopwatch m_Stopwatch;
 
         private readonly TextBlock m_TPSTextBlock = new TextBlock
@@ -73,6 +72,7 @@ namespace BlobSimulator
         };
 
         private readonly TrailMap m_TrailMap;
+        private readonly bool m_UncappedTPS;
 
 
         /// Informative variable.

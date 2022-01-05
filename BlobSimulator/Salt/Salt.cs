@@ -8,13 +8,9 @@ namespace BlobSimulator.Salt
     {
         private readonly Color m_Color;
         private readonly List<Position> m_SaltPixels;
-        private int m_PosX;
-        private int m_PosY;
 
         public Salt(int p_SaltPosX, int p_SaltPosY, int p_Size, Color p_Color)
         {
-            m_PosX = p_SaltPosX;
-            m_PosY = p_SaltPosY;
             m_Color = p_Color;
 
             m_SaltPixels = new List<Position>();
@@ -26,7 +22,7 @@ namespace BlobSimulator.Salt
                 double l_Dy = l_Y - p_SaltPosY;
                 double l_DistanceSquared = l_Dx * l_Dx + l_Dy * l_Dy;
 
-                if (l_DistanceSquared <= p_Size * p_Size) m_SaltPixels.Add(new Position { m_X = l_X, m_Y = l_Y});
+                if (l_DistanceSquared <= p_Size * p_Size) m_SaltPixels.Add(new Position { m_X = l_X, m_Y = l_Y });
             }
         }
 
