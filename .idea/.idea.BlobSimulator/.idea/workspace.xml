@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64056f15-e195-4915-902a-c7e0bd0f6484" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/Salt/Salt.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlobSimulator/Salt/SaltController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulator.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulator.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/TrailMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/TrailMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Salt/Salt.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Salt/Salt.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Salt/SaltController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Salt/SaltController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/StaticFunction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/StaticFunction.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +49,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/445aeb7cc4724fad9006138d2f148517218588/11B/DependencyObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/3A/RuntimeType.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BlobSimulator/obj/Debug/net5.0-windows/App.g.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0c47efafd9b34467af98eb8eafc817ce1e580/A/Color.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/C9/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7c7cc88f89844adbc3a841bb7bac46983fb88/ef/be53d361/PixelFormats.cs" root0="SKIP_HIGHLIGHTING" />
@@ -82,7 +83,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.47562298" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.4754626" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -132,6 +133,7 @@
       <workItem from="1640186247754" duration="12763000" />
       <workItem from="1640206110981" duration="772000" />
       <workItem from="1641323198657" duration="10715000" />
+      <workItem from="1641398049843" duration="12063000" />
     </task>
     <servers />
   </component>

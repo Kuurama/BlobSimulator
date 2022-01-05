@@ -19,7 +19,8 @@ namespace BlobSimulator.Map
 
         /// The bitmap's size.
         private readonly int m_Width;
-        WriteableBitmap l_WritableBitmap;
+
+        private readonly WriteableBitmap m_WritableBitmap;
 
         /// Constructor. Width and height required.
         public BitmapPixelMaker(int p_Width, int p_Height)
@@ -35,7 +36,7 @@ namespace BlobSimulator.Map
             m_Stride = p_Width * 4;
 
             // Create the WriteableBitmap.
-            l_WritableBitmap = new WriteableBitmap(
+            m_WritableBitmap = new WriteableBitmap(
                 m_Width, m_Height, 96, 96,
                 PixelFormats.Bgra32, null);
         }
@@ -74,10 +75,8 @@ namespace BlobSimulator.Map
         }
 
 
-
-
         /// <summary>
-        /// Blur and Evaporate each pixel depending on it's neighborhoods.
+        ///     Blur and Evaporate each pixel depending on it's neighborhoods.
         /// </summary>
         public void BlurAndEvaporateAllPixel(float p_EvaporateStep, float p_BlurStep)
         {
@@ -105,45 +104,21 @@ namespace BlobSimulator.Map
                 int l_PixelSum = l_CurrentPixelValue;
 
 
-                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
-                }
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
 
-                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
-                }
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixel];
 
-                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
-                }
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
 
-                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousPixel];
-                }
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousPixel];
 
-                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextPixel];
-                }
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextPixel];
 
-                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
-                }
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
 
-                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixel];
-                }
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixel];
 
-                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
-                }
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixelRight];
 
                 float l_BlurValue = (float)l_PixelSum / 9;
 
@@ -165,45 +140,21 @@ namespace BlobSimulator.Map
                 l_PixelSum = l_CurrentPixelValue;
 
 
-                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
-                }
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
 
-                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
-                }
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixel];
 
-                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
-                }
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
 
-                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousPixel];
-                }
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousPixel];
 
-                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextPixel];
-                }
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextPixel];
 
-                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
-                }
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
 
-                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixel];
-                }
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixel];
 
-                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
-                }
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixelRight];
 
                 l_BlurValue = (float)l_PixelSum / 9;
 
@@ -226,45 +177,21 @@ namespace BlobSimulator.Map
                 l_PixelSum = l_CurrentPixelValue;
 
 
-                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
-                }
+                if (l_PreviousHeightPixelLeft >= 0 && l_PreviousHeightPixelLeft < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixelLeft];
 
-                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixel];
-                }
+                if (l_PreviousHeightPixel >= 0 && l_PreviousHeightPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixel];
 
-                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
-                }
+                if (l_PreviousHeightPixelRight >= 0 && l_PreviousHeightPixelRight < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousHeightPixelRight];
 
-                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_PreviousPixel];
-                }
+                if (l_PreviousPixel >= 0 && l_PreviousPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_PreviousPixel];
 
-                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextPixel];
-                }
+                if (l_NextPixel >= 0 && l_NextPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextPixel];
 
-                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
-                }
+                if (l_NextHeightPixelLeft >= 0 && l_NextHeightPixelLeft < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixelLeft];
 
-                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixel];
-                }
+                if (l_NextHeightPixel >= 0 && l_NextHeightPixel < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixel];
 
-                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4)
-                {
-                    l_PixelSum += m_Pixels[l_NextHeightPixelRight];
-                }
+                if (l_NextHeightPixelRight >= 0 && l_NextHeightPixelRight < m_Width * m_Height * 4) l_PixelSum += m_Pixels[l_NextHeightPixelRight];
 
                 l_BlurValue = (float)l_PixelSum / 9;
 
@@ -338,19 +265,15 @@ namespace BlobSimulator.Map
         }
 
 
-
-
         /// Use the pixel data to create a WriteableBitmap.
         public WriteableBitmap MakeBitmap(double p_DpiX, double p_DpiY)
         {
-    
-
             /// Load the pixel data.
             Int32Rect l_Rect = new Int32Rect(0, 0, m_Width, m_Height);
-            l_WritableBitmap.WritePixels(l_Rect, m_Pixels, m_Stride, 0);
+            m_WritableBitmap.WritePixels(l_Rect, m_Pixels, m_Stride, 0);
 
             /// Return the bitmap.
-            return l_WritableBitmap;
+            return m_WritableBitmap;
         }
 
 
@@ -714,7 +637,5 @@ namespace BlobSimulator.Map
         }
 
         */
-
-
     }
 }

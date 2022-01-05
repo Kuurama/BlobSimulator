@@ -44,7 +44,7 @@ namespace BlobSimulator
             if (p_SizeChangedEventArgs.WidthChanged) Width = p_SizeChangedEventArgs.NewSize.Height * SCREEN_RATIO;
             else Height = p_SizeChangedEventArgs.NewSize.Width / SCREEN_RATIO;
         }
-        
+
         /// <summary>
         ///     Terminate the program (Here on window closed event).
         /// </summary>

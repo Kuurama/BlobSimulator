@@ -5,8 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BlobSimulator.Blob;
-using BlobSimulator.Salt;
 using BlobSimulator.Map;
+using Color = System.Drawing.Color;
 
 namespace BlobSimulator
 {
@@ -23,15 +23,24 @@ namespace BlobSimulator
         private const double SCREEN_RATIO = (double)MIN_WIDTH / MIN_HEIGHT;
 
         /// Basically how fast the program *could*/*will* run, set the Update and Render loops tick/sec.
-        private const int UPDATE_TPS = 100000, RENDER_TPS = 100000;
+        private const int SIM_FPS = 100000;
+        private const int SIM_TPS = 10;
+        private readonly bool m_UncappedTPS;
 
         /// Important Variable.
-        private readonly BlobCell[] m_BlobCellsList;
-        //private readonly List<Salt> m_SaltList;
+        private readonly BlobCell[] m_BlobCells;
+        private readonly Salt.Salt[] m_Salts;
+        public static Color[] BlockListColor;
 
         private readonly int m_BlobCount;
-        private readonly bool m_ProcessMap = true;
-        private readonly int m_ProcessMapLoopTimeOut;
+        private readonly int m_SaltCount;
+
+        private readonly TextBlock m_BLobCountTextBlock = new TextBlock
+        {
+            Text = "BlobCount: 0",
+            Foreground = new SolidColorBrush(Colors.Aqua),
+            FontSize = SIM_HEIGHT * 0.015f
+        };
 
 
         /// TextBox.
@@ -50,12 +59,8 @@ namespace BlobSimulator
             Source = null
         };
 
-        private readonly TextBlock m_BLobCountTextBlock = new TextBlock
-        {
-            Text = "BlobCount: 0",
-            Foreground = new SolidColorBrush(Colors.Aqua),
-            FontSize = SIM_HEIGHT * 0.015f
-        };
+        private readonly bool m_ProcessMap = true;
+        private readonly int m_ProcessMapLoopTimeOut;
 
         private readonly Random m_Random;
         private readonly Stopwatch m_Stopwatch;

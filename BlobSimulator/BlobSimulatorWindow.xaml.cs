@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using BlobSimulator.Blob;
 using BlobSimulator.Map;
+using BlobSimulator.Salt;
 
 namespace BlobSimulator
 {
@@ -16,6 +16,8 @@ namespace BlobSimulator
     /// </summary>
     public partial class BlobSimulatorWindow
     {
+        private readonly ThreadLocal<Random> m_TLSRandom = new ThreadLocal<Random>(() => new Random());
+
         public BlobSimulatorWindow()
         {
             InitializeComponent();
@@ -27,27 +29,42 @@ namespace BlobSimulator
             m_Stopwatch.Start();
             ///////////////////////////
 
-            DispatcherTimer l_RenderTimer = new DispatcherTimer();
+            DispatcherTimer l_RenderTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromTicks(SIM_FPS) /// Sets m_RenderTimer.Tick to loop at SIM_FPS.
+            };
 
-            l_RenderTimer.Interval = TimeSpan.FromTicks(RENDER_TPS); /// Sets m_RenderTimer.Tick to loop at RENDER_TPS.
             l_RenderTimer.Tick += Render;
+
+            m_UncappedTPS = false; /// Set the uncapped TPS to false.
 
             /// Sets randomly the blob's position.
             const int POS_X = SIM_WIDTH / 2;
             const int POS_Y = SIM_HEIGHT / 2;
 
-            m_BlobCount = 1000000/2;
+            //m_BlobCount = 1000000 / 6;
+            m_BlobCount = 10000;
             const float BLOB_SPEED = 1.00f;
             const float BLOB_TURN_SPEED = 0.4f;
             const float SENSOR_ANGLE_SPACING = 45f;
             const int SENSOR_SIZE = 1, SENSOR_OFFSET_DST = 20;
             const int SPAWN_RADIUS = 12;
             const bool SAVE_DIRECTION = false;
-            Color l_Color = Color.DeepSkyBlue;
-            
-            m_BlobCellsList = new BlobCell[m_BlobCount];
-            BlobController.CreateBlobGroup(m_BlobCellsList, POS_X, POS_Y, SPAWN_RADIUS, BLOB_SPEED, BLOB_TURN_SPEED, SENSOR_ANGLE_SPACING, SENSOR_SIZE, SENSOR_OFFSET_DST, l_Color, SAVE_DIRECTION, m_Random);
+            Color l_BlobColor = Color.DeepSkyBlue;
+            //Color l_BlobColor = Color.Gray;
 
+            m_BlobCells = new BlobCell[m_BlobCount];
+            BlobController.CreateBlobGroup(m_BlobCells, POS_X, POS_Y, SPAWN_RADIUS, BLOB_SPEED, BLOB_TURN_SPEED, SENSOR_ANGLE_SPACING, SENSOR_SIZE, SENSOR_OFFSET_DST, l_BlobColor, SAVE_DIRECTION, m_Random);
+            
+            m_SaltCount = 200;
+            m_Salts = new Salt.Salt[m_SaltCount];
+            Color l_SaltColor = Color.White;
+            BlockListColor = new Color[1];g
+            BlockListColor[0] = l_SaltColor;
+
+            int l_MaxSaltSize = 20;
+            SaltController.CreateSaltGroup(m_Salts, 0,  SIM_WIDTH, 0, SIM_HEIGHT, l_MaxSaltSize, Color.White, m_Random);
+            
             /// Starts the Render Loop.
             l_RenderTimer.Start();
 
@@ -59,34 +76,45 @@ namespace BlobSimulator
 
             m_BLobCountTextBlock.Text = $"BlobCount: {m_BlobCount}";
 
-            Task.Run(() => Update(null, null!));
+            Task.Run(Update);
         }
 
-        private readonly ThreadLocal<Random> m_TLSRandom = new ThreadLocal<Random>(() => new Random());
 
-
-        private void Update(object? p_Sender, EventArgs p_EventArgs)
+        private void Update()
         {
             while (true)
             {
                 m_TPS++;
 
-                Parallel.ForEach(m_BlobCellsList, new ParallelOptions() { MaxDegreeOfParallelism = 24 }, l_BlobCell =>
+                Parallel.ForEach(m_Salts, new ParallelOptions { MaxDegreeOfParallelism = 16 }, p_Salt =>
                 {
-                      var l_Random = m_TLSRandom.Value;
-                      l_BlobCell.FollowTrail(m_TrailMap, l_Random);
-                      l_BlobCell.Move(l_Random);
-                      l_BlobCell.Draw(m_TrailMap);
+                    p_Salt.Draw(m_TrailMap);
+                });
+                
+                Parallel.ForEach(m_BlobCells, new ParallelOptions { MaxDegreeOfParallelism = 24 }, p_BlobCell =>
+                {
+                    Random? l_Random = m_TLSRandom.Value;
+                    p_BlobCell.FollowTrail(m_TrailMap, l_Random);
+                    p_BlobCell.Move(l_Random);
+                    p_BlobCell.Draw(m_TrailMap);
                 });
 
-                System.Threading.Thread.Yield();
+                if (!m_UncappedTPS)
+                {
+                    Thread.Sleep(SIM_TPS);
+                }
+                else
+                {
+                    Thread.Yield(); /// Doing this would uncap fps and give better performances.
+                }
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private void Render(object? p_Sender, EventArgs p_EventArgs)
         {
             m_FPS++;
-            if (m_Stopwatch.ElapsedMilliseconds  > 1000)
+            if (m_Stopwatch.ElapsedMilliseconds > 1000)
             {
                 m_FPSTextBlock.Text = $"FPS: {m_FPS}";
                 m_TPSTextBlock.Text = $"TPS: {m_TPS}";

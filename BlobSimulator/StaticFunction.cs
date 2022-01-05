@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BlobSimulator
 {
@@ -33,12 +34,31 @@ namespace BlobSimulator
             return l_Ints;
         }
 
-        public static float Lerp(float p_A, float p_B, float p_T) 
+        public static float Lerp(float p_A, float p_B, float p_T)
         {
             //if (p_T <= 0.5)
-                return p_A+(p_B-p_A)*p_T;
+            return p_A + (p_B - p_A) * p_T;
             //else
             //    return (float)(p_B-(p_B-p_A)*(1.0-p_T));
+        }
+
+        public static float Scale(float p_Value, float p_Min, float p_Max, float p_MinScale, float p_MaxScale)
+        {
+            float l_Scaled = p_MinScale + (p_Value - p_Min) / (p_Max - p_Min) * (p_MaxScale - p_MinScale);
+            return l_Scaled;
+        }
+
+        public static float GetMaxStep(float p_ValueA, float p_ValueB, float p_MinValue, float p_MaxValue)
+        {
+            float l_MaxStep = Math.Abs(p_ValueB - p_ValueA);
+
+            if (l_MaxStep < p_MinValue)
+                return p_MinValue;
+
+            if (l_MaxStep > p_MaxValue)
+                return p_MaxValue;
+
+            return l_MaxStep;
         }
     }
 }
