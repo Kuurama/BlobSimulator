@@ -35,10 +35,10 @@ namespace BlobSimulator
 
         public static float Lerp(float p_A, float p_B, float p_T) 
         {
-            if (p_T <= 0.5)
+            //if (p_T <= 0.5)
                 return p_A+(p_B-p_A)*p_T;
-            else
-                return (float)(p_B-(p_B-p_A)*(1.0-p_T));
+            //else
+            //    return (float)(p_B-(p_B-p_A)*(1.0-p_T));
         }
     }
 }

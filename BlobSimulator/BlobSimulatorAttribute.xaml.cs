@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BlobSimulator.Blob;
+using BlobSimulator.Salt;
 using BlobSimulator.Map;
 
 namespace BlobSimulator
@@ -25,9 +26,10 @@ namespace BlobSimulator
         private const int UPDATE_TPS = 100000, RENDER_TPS = 100000;
 
         /// Important Variable.
-        private readonly List<List<BlobCell>> m_BlobCellsList;
+        private readonly BlobCell[] m_BlobCellsList;
+        //private readonly List<Salt> m_SaltList;
 
-        private readonly int m_BlobCount, m_BlobListCount;
+        private readonly int m_BlobCount;
         private readonly bool m_ProcessMap = true;
         private readonly int m_ProcessMapLoopTimeOut;
 
@@ -70,7 +72,5 @@ namespace BlobSimulator
 
         /// Informative variable.
         private int m_FPS, m_TPS;
-
-        private long m_RenderStartTimeMillisecond, m_UpdateStartTimeMillisecond;
     }
 }

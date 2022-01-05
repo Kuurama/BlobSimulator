@@ -4,7 +4,19 @@
     <projectFile>BlobSimulator/BlobSimulator.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64056f15-e195-4915-902a-c7e0bd0f6484" name="Changes" comment="" />
+    <list default="true" id="64056f15-e195-4915-902a-c7e0bd0f6484" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BlobSimulator/Salt/Salt.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlobSimulator/Salt/SaltController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulator.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulator.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/TrailMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/TrailMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/StaticFunction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/StaticFunction.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,7 +89,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="CodeLensConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -118,6 +130,8 @@
       <workItem from="1640100340218" duration="16108000" />
       <workItem from="1640134129553" duration="11721000" />
       <workItem from="1640186247754" duration="12763000" />
+      <workItem from="1640206110981" duration="772000" />
+      <workItem from="1641323198657" duration="10715000" />
     </task>
     <servers />
   </component>
