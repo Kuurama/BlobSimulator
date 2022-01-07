@@ -118,7 +118,7 @@ namespace BlobSimulator.Blob
 
             // ReSharper disable CompareOfFloatsByEqualityOperator
             if (l_WeightForward == float.MinValue && l_WeightLeft == float.MinValue && l_WeightRight == int.MinValue)
-                m_Angle += 1;
+                m_Angle += 3.14159f;
             else if (l_WeightForward > l_WeightLeft && l_WeightForward > l_WeightRight)
                 m_Angle += 0;
             else if (l_WeightForward < l_WeightLeft && l_WeightForward < l_WeightRight)
