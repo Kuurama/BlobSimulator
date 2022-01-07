@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using BlobSimulator.Blob;
 using BlobSimulator.Map;
 using Color = System.Drawing.Color;
@@ -25,20 +26,18 @@ namespace BlobSimulator
         private const int SIM_FPS = 100000;
 
         private const int SIM_TPS = 10;
+        public static Color m_PathColor;
+        public static System.Windows.Media.Color m_DestinationColor;
+        public static System.Windows.Media.Color m_SpawnColor;
         public static Color[]? m_BlockListColor;
+        public static int m_DestinationPosX, m_DestinationPosY, m_DestinationMargin;
 
         /// Important Variable.
-        private BlobCell[] m_BlobCells;
-        
+        private readonly BlobCell[] m_BlobCells;
+
 
         private readonly int m_BlobCount;
-        
-        /// Sets the blob's position.
-        private readonly int m_PosX, m_PosY, m_SpawnRadius;
 
-        private bool m_BoolUpdateLoop = true;
-        public static int m_DestinationPosX, m_DestinationPosY, m_DestinationMargin;
-        
 
         /// TextBox.
         private readonly TextBlock m_BLobCountTextBlock = new TextBlock
@@ -47,6 +46,8 @@ namespace BlobSimulator
             Foreground = new SolidColorBrush(Colors.Aqua),
             FontSize = SIM_HEIGHT * 0.015f
         };
+
+        private readonly Rectangle m_FinalDestinationRectangle = new Rectangle();
 
         private readonly TextBlock m_FPSTextBlock = new TextBlock
         {
@@ -63,12 +64,15 @@ namespace BlobSimulator
             Source = null
         };
 
-        private bool m_ProcessMap = true;
+        /// Sets the blob's position.
+        private readonly int m_PosX, m_PosY, m_SpawnRadius;
+
         private readonly int m_ProcessMapLoopTimeOut;
 
         private readonly Random m_Random;
         private readonly int m_SaltCount;
         private readonly Salt.Salt[] m_Salts;
+        private readonly Ellipse m_SpawnEllipse = new Ellipse();
         private readonly Stopwatch m_Stopwatch;
 
         private readonly TextBlock m_TPSTextBlock = new TextBlock
@@ -81,8 +85,12 @@ namespace BlobSimulator
         private readonly TrailMap m_TrailMap;
         private readonly bool m_UncappedTPS;
 
+        private bool m_BoolUpdateLoop = true;
+
 
         /// Informative variable.
         private int m_FPS, m_TPS;
+
+        private bool m_ProcessMap = true;
     }
 }

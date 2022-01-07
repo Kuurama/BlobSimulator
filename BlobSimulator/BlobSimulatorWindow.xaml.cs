@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Threading;
 using BlobSimulator.Blob;
 using BlobSimulator.Map;
 using BlobSimulator.Salt;
+using Color = System.Drawing.Color;
 
 namespace BlobSimulator
 {
@@ -49,7 +50,16 @@ namespace BlobSimulator
             const float SENSOR_ANGLE_SPACING = 45f;
             const int SENSOR_SIZE = 1, SENSOR_OFFSET_DST = 20;
             m_SpawnRadius = 12;
+
+
             const bool SAVE_DIRECTION = true; /// Make the BlobCells able to save their Path.
+
+            /// PathFindingUI Colors
+            m_PathColor = Color.Crimson;
+            m_DestinationColor = Colors.LimeGreen;
+            m_SpawnColor = Colors.Lime;
+
+
             Color l_BlobColor = Color.DeepSkyBlue;
             //Color l_BlobColor = Color.Gray;
 
@@ -71,9 +81,8 @@ namespace BlobSimulator
             m_DestinationPosY = 30;
             m_DestinationMargin = 20;
             /// ///////////////
-            
-            
-            
+
+
             /// Starts the Render Loop.
             l_RenderTimer.Start();
 
@@ -84,6 +93,7 @@ namespace BlobSimulator
             l_ProcessTrailMapThread.Start();
 
             m_BLobCountTextBlock.Text = $"BlobCount: {m_BlobCount}";
+
 
             Task.Run(Update);
         }
@@ -128,6 +138,8 @@ namespace BlobSimulator
 
             // Update the Image source (Which is being displayed).
 
+            //m_TrailMap.m_BitMap.DrawSquare(m_DestinationPosX - m_DestinationMargin, m_DestinationPosY - m_DestinationMargin, m_DestinationPosX + m_DestinationMargin, m_DestinationPosY + m_DestinationMargin, false, 1, m_DestinationColor);
+
             m_Image.Source = m_TrailMap.m_BitMap.MakeBitmap(96, 96);
         }
 
@@ -143,24 +155,21 @@ namespace BlobSimulator
         private void ProcessResult()
         {
             List<BlobCell> l_ProcessedBlobCells = BlobController.SortBlobByDestination(m_BlobCells, m_DestinationPosX, m_DestinationPosY, m_DestinationMargin);
-            
+
             //m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(255f, 0f); /// Clear the map.
             List<BlobController.BlobCompletedPath> l_CompletedPaths = new List<BlobController.BlobCompletedPath>();
             foreach (var l_ProcessedBlobCell in l_ProcessedBlobCells)
             {
                 //l_ProcessedBlobCell.Draw(m_TrailMap);
-                List<BlobController.BlobCompletedPath> l_CurrentBlobCompletedPaths =  BlobController.GiveCompleteBlobPathList(l_ProcessedBlobCell.m_BlobVectors, m_PosX, m_PosY, m_SpawnRadius, m_DestinationPosX, m_DestinationPosY, m_DestinationMargin);
+                List<BlobController.BlobCompletedPath> l_CurrentBlobCompletedPaths = BlobController.GiveCompleteBlobPathList(l_ProcessedBlobCell.m_BlobVectors, m_PosX, m_PosY, m_SpawnRadius, m_DestinationPosX, m_DestinationPosY, m_DestinationMargin);
                 foreach (var l_Path in l_CurrentBlobCompletedPaths)
-                {
                     l_CompletedPaths.Add(l_Path);
-                    //BlobCell.DrawVectorStatic(l_Path.m_BlobVectors, l_ProcessedBlobCell.m_DisplayedColor, m_TrailMap);
-                }
+                //BlobCell.DrawVectorStatic(l_Path.m_BlobVectors, l_ProcessedBlobCell.m_DisplayedColor, m_TrailMap);
                 //l_ProcessedBlobCell.DrawVector(m_TrailMap);
                 //m_TrailMap.m_BitMap.DrawLine(100, 140, 80, 120, 0, 10, Color.DeepSkyBlue);
             }
 
-            BlobCell.DrawVectorStatic(BlobController.GiveShortestDestinationPath(l_CompletedPaths).m_BlobVectors, Color.Crimson, m_TrailMap);
-
+            BlobCell.DrawVectorStatic(BlobController.GiveShortestDestinationPath(l_CompletedPaths).m_BlobVectors, m_PathColor, m_TrailMap);
         }
     }
 }

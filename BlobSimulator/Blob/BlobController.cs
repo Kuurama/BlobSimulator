@@ -8,7 +8,7 @@ namespace BlobSimulator.Blob
     public class BlobController
     {
         /// <summary>
-        /// Adds BlobCells to the given array considering the different parameters.
+        ///     Adds BlobCells to the given array considering the different parameters.
         /// </summary>
         /// <param name="p_BlobCells"></param>
         /// <param name="p_PosX"></param>
@@ -39,7 +39,7 @@ namespace BlobSimulator.Blob
         }
 
         /// <summary>
-        /// Return a BlobCell List from the given Array which didn't make to the final destination.
+        ///     Return a BlobCell List from the given Array which didn't make to the final destination.
         /// </summary>
         /// <param name="p_BlobCells"></param>
         public static List<BlobCell> SortBlobByDestination(BlobCell[] p_BlobCells, float p_DestinationPosX, float p_DestinationPosY, float p_DestinationMargin)
@@ -53,16 +53,11 @@ namespace BlobSimulator.Blob
                 bool l_BlobVectorMatch = false;
 
                 foreach (BlobVectorFormat l_BlobVector in p_BlobCells[l_I].m_BlobVectors
-                    .Where(p_BlobVector => (!(p_BlobVector.m_PosX < p_DestinationPosX - p_DestinationMargin)) && (!(p_BlobVector.m_PosX > p_DestinationPosX + p_DestinationMargin)))
+                    .Where(p_BlobVector => !(p_BlobVector.m_PosX < p_DestinationPosX - p_DestinationMargin) && !(p_BlobVector.m_PosX > p_DestinationPosX + p_DestinationMargin))
                     .Where(p_BlobVector => p_BlobVector.m_PosY > p_DestinationPosY - p_DestinationMargin && p_BlobVector.m_PosY < p_DestinationPosY + p_DestinationMargin))
-                {
                     l_BlobVectorMatch = true; /// One of the blob position match with the Destination.
-                }
 
-                if (l_BlobVectorMatch)
-                {
-                    l_SortedBlobCells.Add(p_BlobCells[l_I]);
-                }
+                if (l_BlobVectorMatch) l_SortedBlobCells.Add(p_BlobCells[l_I]);
             }
 
             return l_SortedBlobCells;
@@ -72,13 +67,12 @@ namespace BlobSimulator.Blob
         {
             List<List<BlobVectorFormat>> l_BlobVectorFormats = new List<List<BlobVectorFormat>>();
             if (!p_BlobVectors.Any()) return new List<BlobCompletedPath>();
-            
+
             List<BlobVectorFormat> l_BlobVectorList = new List<BlobVectorFormat>();
 
             bool l_IsFromDestination = false;
-            
+
             foreach (var l_BlobVector in p_BlobVectors)
-            {
                 if (StaticFunction.IsInArea((int)l_BlobVector.m_PosX, (int)l_BlobVector.m_PosY, p_BasePosX, p_BasePosY, p_BasePosMargin))
                 {
                     if (l_BlobVectorList.Any()) /// Mean there is at least 1 vector.
@@ -105,32 +99,28 @@ namespace BlobSimulator.Blob
                     else /// The blob isn't at the destination (yet).
                     {
                         if (!l_IsFromDestination) /// Prevent next vector which come from the destination to be added.
-                        {
                             l_BlobVectorList.Add(l_BlobVector);
-                        }
                     }
                 }
-            }
 
 
-            return (from l_BlobVectors in l_BlobVectorFormats let l_Distance = l_BlobVectors.Sum(p_Vector => Math.Abs(p_Vector.m_StepX) + Math.Abs(p_Vector.m_StepY)) 
-                select new BlobCompletedPath() { m_BlobVectors = l_BlobVectors, m_Distance = l_Distance }).ToList();
+            return (from l_BlobVectors in l_BlobVectorFormats
+                let l_Distance = l_BlobVectors.Sum(p_Vector => Math.Abs(p_Vector.m_StepX) + Math.Abs(p_Vector.m_StepY))
+                select new BlobCompletedPath { m_BlobVectors = l_BlobVectors, m_Distance = l_Distance }).ToList();
         }
 
-        public static BlobCompletedPath GiveShortestDestinationPath(List<BlobCompletedPath> p_BlobpathList)
+        public static BlobCompletedPath GiveShortestDestinationPath(List<BlobCompletedPath> p_BlobPathList)
         {
             BlobCompletedPath l_BestBlobPath = new BlobCompletedPath();
 
             float l_MinDistance = float.MaxValue;
-            foreach (var l_BlobPath in p_BlobpathList)
-            {
+            foreach (var l_BlobPath in p_BlobPathList)
                 if (l_BlobPath.m_Distance < l_MinDistance)
                 {
                     l_BestBlobPath = l_BlobPath;
                     l_MinDistance = l_BlobPath.m_Distance;
                 }
-            }
-            
+
             return l_BestBlobPath;
         }
 

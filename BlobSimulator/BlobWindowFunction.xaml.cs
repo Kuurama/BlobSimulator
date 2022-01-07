@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BlobSimulator
 {
@@ -9,6 +11,8 @@ namespace BlobSimulator
     /// </summary>
     public partial class BlobSimulatorWindow
     {
+        private Point m_MousePoint;
+
         private void Window_Loaded(object p_Sender, RoutedEventArgs p_EventArgs)
         {
             CanvasMain.Children.Add(m_Image); /// Add the Image to the Canvas.
@@ -32,6 +36,22 @@ namespace BlobSimulator
             BlobSimulatorMainWindow.Height = MIN_HEIGHT * SCALE_MULTIPLIER;
             m_BLobCountTextBlock.Text = $"BlobCount: {m_BlobCount.ToString()}".ToString();
             CanvasMain.Children.Add(m_BLobCountTextBlock);
+
+            /// Adds the FinalDestinationRectangle.
+            m_FinalDestinationRectangle.Stroke = new SolidColorBrush(m_DestinationColor);
+            m_FinalDestinationRectangle.Width = m_DestinationMargin * 2;
+            m_FinalDestinationRectangle.Height = m_DestinationMargin * 2;
+            Canvas.SetLeft(m_FinalDestinationRectangle, m_DestinationPosX - m_DestinationMargin);
+            Canvas.SetTop(m_FinalDestinationRectangle, m_DestinationPosY - m_DestinationMargin);
+            CanvasMain.Children.Add(m_FinalDestinationRectangle);
+
+            /// Adds the SpawnRectangle.
+            m_SpawnEllipse.Stroke = new SolidColorBrush(m_SpawnColor);
+            m_SpawnEllipse.Width = m_SpawnRadius * 2;
+            m_SpawnEllipse.Height = m_SpawnRadius * 2;
+            Canvas.SetLeft(m_SpawnEllipse, m_PosX - m_SpawnRadius);
+            Canvas.SetTop(m_SpawnEllipse, m_PosY - m_SpawnRadius);
+            CanvasMain.Children.Add(m_SpawnEllipse);
         }
 
         /// <summary>
@@ -55,12 +75,25 @@ namespace BlobSimulator
             Environment.Exit(Environment.ExitCode); // Prevent memory leak
             //System.Windows.Application.Current.Shutdown(); // Not sure if needed
         }
-        
+
         private void EndSimulationAndGetResult_OnClick(object p_Sender, RoutedEventArgs p_E)
         {
             m_BoolUpdateLoop = false;
             m_ProcessMap = false;
             ProcessResult();
+        }
+
+        private void SetNewDestination_OnClick(object p_Sender, RoutedEventArgs p_E)
+        {
+            m_DestinationPosX = (int)m_MousePoint.X;
+            m_DestinationPosY = (int)m_MousePoint.Y;
+        }
+
+        private void OnPreviewMouseRightButtonDown(object p_Sender, MouseButtonEventArgs p_E)
+        {
+            m_MousePoint = Mouse.GetPosition(CanvasMain);
+            Canvas.SetLeft(m_FinalDestinationRectangle, m_DestinationPosX - m_DestinationMargin);
+            Canvas.SetTop(m_FinalDestinationRectangle, m_DestinationPosY - m_DestinationMargin);
         }
     }
 }

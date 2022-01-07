@@ -8,12 +8,13 @@
 
     <Viewbox Stretch="Fill">
 
-        <Canvas Name="CanvasMain">
-            <Canvas.ContextMenu> 
-                <ContextMenu> 
-                    <MenuItem Header="End simulation and get result" Click="EndSimulationAndGetResult_OnClick"/>  
-                </ContextMenu> 
-            </Canvas.ContextMenu> 
+        <Canvas Name="CanvasMain" MouseDown="OnPreviewMouseRightButtonDown">
+            <Canvas.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="End simulation and get result" Click="EndSimulationAndGetResult_OnClick" />
+                    <MenuItem Header="Set new Destination" Click="SetNewDestination_OnClick" />
+                </ContextMenu>
+            </Canvas.ContextMenu>
         </Canvas>
 
     </Viewbox>

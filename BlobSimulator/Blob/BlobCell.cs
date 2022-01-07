@@ -95,7 +95,7 @@ namespace BlobSimulator.Blob
                 else
                 {
                     bool l_OldVectorIsInDestination = StaticFunction.IsInArea((int)m_BlobVectors[l_BlobVectorCount - 1].m_PosX, (int)m_BlobVectors[l_BlobVectorCount - 1].m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin);
-                    if ((Math.Abs(m_BlobVectors[l_BlobVectorCount-1].m_Angle - m_Angle) > 0.001 && !l_OldVectorIsInDestination) || (!l_OldVectorIsInDestination && StaticFunction.IsInArea((int)m_PosX, (int)m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin)))
+                    if (Math.Abs(m_BlobVectors[l_BlobVectorCount - 1].m_Angle - m_Angle) > 0.001 && !l_OldVectorIsInDestination || !l_OldVectorIsInDestination && StaticFunction.IsInArea((int)m_PosX, (int)m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin))
                         /// Adding the new coordonate if the BlobCell shift direction and wasn't on the Final destination, or if the old blob register coordinate wasn't on the Destination and now is inside. (So we can optimise the space taken)
                         m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
                 }
@@ -161,7 +161,7 @@ namespace BlobSimulator.Blob
         {
             p_TrailMap.m_BitMap.SetPixel((int)m_PosX, (int)m_PosY, m_DisplayedColor);
         }
-        
+
         /// <summary>
         ///     Draws the BlobCell's Vector on the BitMap.
         /// </summary>
@@ -169,30 +169,24 @@ namespace BlobSimulator.Blob
         {
             if (m_BlobVectors.Any())
             {
-                p_TrailMap.m_BitMap.SetPixel((int)m_BlobVectors[0].m_PosX,(int)m_BlobVectors[0].m_PosY, m_DisplayedColor); /// Display the original starting point.
+                p_TrailMap.m_BitMap.SetPixel((int)m_BlobVectors[0].m_PosX, (int)m_BlobVectors[0].m_PosY, m_DisplayedColor); /// Display the original starting point.
                 for (int l_Index = 0; l_Index < m_BlobVectors.Count - 1; l_Index++) /// Ignore the first one and draw the last ones.
-                {
-                    p_TrailMap.m_BitMap.DrawLine(m_BlobVectors[l_Index].m_PosX, m_BlobVectors[l_Index].m_PosY, m_BlobVectors[l_Index+1].m_PosX, m_BlobVectors[l_Index+1].m_PosY, 0, 1f, m_DisplayedColor);
-                }
+                    p_TrailMap.m_BitMap.DrawLine(m_BlobVectors[l_Index].m_PosX, m_BlobVectors[l_Index].m_PosY, m_BlobVectors[l_Index + 1].m_PosX, m_BlobVectors[l_Index + 1].m_PosY, true, 1f, m_DisplayedColor);
             }
         }
-        
+
         /// <summary>
         ///     Draws a BlobCell's Vector on the BitMap.
         /// </summary>
-        public static void DrawVectorStatic( List<BlobVectorFormat>? p_BlobVectors, Color p_Color, TrailMap p_TrailMap)
+        public static void DrawVectorStatic(List<BlobVectorFormat>? p_BlobVectors, Color p_Color, TrailMap p_TrailMap)
         {
             if (p_BlobVectors != null)
-            {
                 if (p_BlobVectors.Any())
                 {
-                    p_TrailMap.m_BitMap.SetPixel((int)p_BlobVectors[0].m_PosX,(int)p_BlobVectors[0].m_PosY, p_Color); /// Display the original starting point.
+                    p_TrailMap.m_BitMap.SetPixel((int)p_BlobVectors[0].m_PosX, (int)p_BlobVectors[0].m_PosY, p_Color); /// Display the original starting point.
                     for (int l_Index = 0; l_Index < p_BlobVectors.Count - 1; l_Index++) /// Ignore the first one and draw the last ones.
-                    {
-                        p_TrailMap.m_BitMap.DrawLine(p_BlobVectors[l_Index].m_PosX, p_BlobVectors[l_Index].m_PosY, p_BlobVectors[l_Index+1].m_PosX, p_BlobVectors[l_Index+1].m_PosY, 0, 1f, p_Color);
-                    }
+                        p_TrailMap.m_BitMap.DrawLine(p_BlobVectors[l_Index].m_PosX, p_BlobVectors[l_Index].m_PosY, p_BlobVectors[l_Index + 1].m_PosX, p_BlobVectors[l_Index + 1].m_PosY, true, 1f, p_Color);
                 }
-            }
         }
     }
 

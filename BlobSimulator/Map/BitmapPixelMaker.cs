@@ -68,7 +68,7 @@ namespace BlobSimulator.Map
         }
 
         /// DrawLine.
-        public void DrawLine(float p_X1, float p_Y1, float p_X2, float p_Y2, int p_Width, float p_Density, Color p_Color)
+        public void DrawLine(float p_X1, float p_Y1, float p_X2, float p_Y2, bool p_BigLine, float p_Density, Color p_Color)
         {
             //float l_Slope = p_Y2 - p_Y1 /p_X2 - p_X1;
             //float l_YIntercept = p_Y2 - l_Slope*p_X2;
@@ -83,22 +83,40 @@ namespace BlobSimulator.Map
             //float l_StepX = (p_X2 - p_X1) / l_NumberOfPoint;
 
             for (int l_I = 0; l_I < l_NumberOfPoint; l_I++)
-            {
-                if ((int)(p_X1 - 1 + l_I * l_D * l_CosFi) >= 0 && (int)(p_X1 + 1 + l_I * l_D * l_CosFi) < m_Width && (int)(p_Y1 -1 + l_I * l_D * l_SinFi) >= 0 && (int)(p_Y1 + 1 + l_I * l_D * l_SinFi) < m_Height)
+                if ((int)(p_X1 - 1 + l_I * l_D * l_CosFi) >= 0 && (int)(p_X1 + 1 + l_I * l_D * l_CosFi) < m_Width && (int)(p_Y1 - 1 + l_I * l_D * l_SinFi) >= 0 && (int)(p_Y1 + 1 + l_I * l_D * l_SinFi) < m_Height)
                 {
-                    SetPixel((int)(p_X1 - 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 - 1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + 1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 - 1 + l_I * l_D * l_CosFi), (int)(p_Y1 - 1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 - 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + 1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + 1 + l_I * l_D * l_CosFi), (int)(p_Y1 - 1 + l_I * l_D * l_SinFi), p_Color);
-                    SetPixel((int)(p_X1 + 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + 1 + l_I * l_D * l_SinFi), p_Color);
+                    if (p_BigLine)
+                    {
+                        SetPixel((int)(p_X1 - 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 - 1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + 1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 - 1 + l_I * l_D * l_CosFi), (int)(p_Y1 - 1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 - 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + 1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + 1 + l_I * l_D * l_CosFi), (int)(p_Y1 - 1 + l_I * l_D * l_SinFi), p_Color);
+                        SetPixel((int)(p_X1 + 1 + l_I * l_D * l_CosFi), (int)(p_Y1 + 1 + l_I * l_D * l_SinFi), p_Color);
+                    }
+                    else
+                    {
+                        SetPixel((int)(p_X1 + l_I * l_D * l_CosFi), (int)(p_Y1 + l_I * l_D * l_SinFi), p_Color);
+                    }
                 }
-            }
         }
+
+        /// Draw a square
+        public void DrawSquare(int p_X1, int p_Y1, int p_X2, int p_Y2, bool p_BigLine, float p_Density, Color p_Color)
+        {
+            DrawLine(p_X1, p_Y1, p_X2, p_Y1, p_BigLine, 1, p_Color); /// Up/Down
+
+            DrawLine(p_X1, p_Y2, p_X2, p_Y2, p_BigLine, 1, p_Color); /// Up/Down
+
+            DrawLine(p_X2, p_Y1, p_X2, p_Y2, p_BigLine, 1, p_Color); /// Left/Right
+
+            DrawLine(p_X1, p_Y1, p_X1, p_Y2, p_BigLine, 1, p_Color); /// Left/Right
+        }
+
 
         /// Set a pixel's value.
         public Color GetPixel(int p_X, int p_Y)
