@@ -103,7 +103,6 @@ namespace BlobSimulator.Blob
                     }
                 }
 
-
             return (from l_BlobVectors in l_BlobVectorFormats
                 let l_Distance = l_BlobVectors.Sum(p_Vector => Math.Abs(p_Vector.m_StepX) + Math.Abs(p_Vector.m_StepY))
                 select new BlobCompletedPath { m_BlobVectors = l_BlobVectors, m_Distance = l_Distance }).ToList();

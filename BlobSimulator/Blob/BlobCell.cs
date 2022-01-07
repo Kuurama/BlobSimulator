@@ -90,14 +90,15 @@ namespace BlobSimulator.Blob
                 if (l_BlobVectorCount <= 0)
                 {
                     /// Adding the first BlobCell starting position.
-                    m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
+                    m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY, m_Angle = m_Angle });
                 }
                 else
                 {
                     bool l_OldVectorIsInDestination = StaticFunction.IsInArea((int)m_BlobVectors[l_BlobVectorCount - 1].m_PosX, (int)m_BlobVectors[l_BlobVectorCount - 1].m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin);
                     if (Math.Abs(m_BlobVectors[l_BlobVectorCount - 1].m_Angle - m_Angle) > 0.001 && !l_OldVectorIsInDestination || !l_OldVectorIsInDestination && StaticFunction.IsInArea((int)m_PosX, (int)m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin))
-                        /// Adding the new coordonate if the BlobCell shift direction and wasn't on the Final destination, or if the old blob register coordinate wasn't on the Destination and now is inside. (So we can optimise the space taken)
-                        m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_DirectionX = l_DirectionX, m_DirectionY = l_DirectionY, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
+                        m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
+
+                    /// Adding the new coordonate if the BlobCell shift direction and wasn't on the Final destination, or if the old blob register coordinate wasn't on the Destination and now is inside. (So we can optimise the space taken, the performances doesn't seems to be really impacted by those mathematic check too much/at all)
                 }
             }
 
@@ -193,8 +194,6 @@ namespace BlobSimulator.Blob
     public class BlobVectorFormat
     {
         public float m_Angle;
-        public float m_DirectionX;
-        public float m_DirectionY;
         public float m_PosX;
         public float m_PosY;
 

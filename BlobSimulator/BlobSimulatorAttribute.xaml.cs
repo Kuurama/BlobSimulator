@@ -18,14 +18,14 @@ namespace BlobSimulator
         /// Set the screen minimum Width and Height, then the Scale Multiplier => By how much you multiply them to set the BlobSimulatorWindow Size.
         private const int MIN_WIDTH = 256, MIN_HEIGHT = 144, SCALE_MULTIPLIER = 6;
 
-        private const float SIM_SCALE_MULTIPLIER = 3;
+        private const float SIM_SCALE_MULTIPLIER = 2;
         public const int SIM_WIDTH = (int)(MIN_WIDTH * SIM_SCALE_MULTIPLIER), SIM_HEIGHT = (int)(MIN_HEIGHT * SIM_SCALE_MULTIPLIER);
         private const double SCREEN_RATIO = (double)MIN_WIDTH / MIN_HEIGHT;
 
         /// Basically how fast the program *could*/*will* run, set the Update and Render loops tick/sec.
-        private const int SIM_FPS = 100000;
+        private const int SIM_FPS = 50000;
 
-        private const int SIM_TPS = 10;
+        private const int SIM_TPS = 5;
         public static Color m_PathColor;
         public static System.Windows.Media.Color m_DestinationColor;
         public static System.Windows.Media.Color m_SpawnColor;

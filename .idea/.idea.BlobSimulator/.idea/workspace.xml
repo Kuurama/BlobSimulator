@@ -9,11 +9,8 @@
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Map/BitmapPixelMaker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlobSimulator/StaticFunction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/StaticFunction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Salt/SaltController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Salt/SaltController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +132,7 @@
       <workItem from="1641485228617" duration="9267000" />
       <workItem from="1641496501555" duration="1793000" />
       <workItem from="1641498843005" duration="23000" />
-      <workItem from="1641498882865" duration="23073000" />
+      <workItem from="1641498882865" duration="28824000" />
     </task>
     <servers />
   </component>
@@ -163,5 +160,24 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs</url>
+          <line>82</line>
+          <properties documentPath="C:\Users\jaune\Documents\RiderProjects\BlobSimulator\BlobSimulator\BlobWindowFunction.xaml.cs" initialLine="82" containingFunctionPresentation="method 'EndSimulationAndGetResult_OnClick'">
+            <startOffsets>
+              <option value="3667" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3683" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

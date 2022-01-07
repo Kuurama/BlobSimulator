@@ -41,32 +41,38 @@ namespace BlobSimulator
 
             /// Sets randomly the blob's position.
             m_PosX = SIM_WIDTH - SIM_WIDTH / 7;
-            m_PosY = SIM_HEIGHT - SIM_HEIGHT / 12;
+            m_PosY = SIM_HEIGHT - SIM_HEIGHT / 6;
 
             //m_BlobCount = 1000000 / 6;
-            m_BlobCount = 50000;
+            m_BlobCount = 25000;
             const float BLOB_SPEED = 1.00f;
             const float BLOB_TURN_SPEED = 0.4f;
             const float SENSOR_ANGLE_SPACING = 45f;
             const int SENSOR_SIZE = 1, SENSOR_OFFSET_DST = 20;
-            m_SpawnRadius = 12;
+            m_SpawnRadius = 25;
 
 
             const bool SAVE_DIRECTION = true; /// Make the BlobCells able to save their Path.
 
             /// PathFindingUI Colors
             m_PathColor = Color.Crimson;
-            m_DestinationColor = Colors.LimeGreen;
+            m_DestinationColor = Colors.Crimson;
             m_SpawnColor = Colors.Lime;
 
 
             Color l_BlobColor = Color.DeepSkyBlue;
             //Color l_BlobColor = Color.Gray;
 
+            /// Destination ///
+            m_DestinationPosX = 60;
+            m_DestinationPosY = 60;
+            m_DestinationMargin = 30;
+            /// ///////////////
+
             m_BlobCells = new BlobCell[m_BlobCount];
             BlobController.CreateBlobGroup(m_BlobCells, m_PosX, m_PosY, m_SpawnRadius, BLOB_SPEED, BLOB_TURN_SPEED, SENSOR_ANGLE_SPACING, SENSOR_SIZE, SENSOR_OFFSET_DST, l_BlobColor, SAVE_DIRECTION, m_Random);
 
-            m_SaltCount = 100;
+            m_SaltCount = 50;
             m_Salts = new Salt.Salt[m_SaltCount];
             Color l_SaltColor = Color.White;
             m_BlockListColor = new Color[1];
@@ -74,26 +80,19 @@ namespace BlobSimulator
             m_BlockListColor[0] = l_SaltColor;
 
             const int MAX_SALT_SIZE = 25;
-            SaltController.CreateSaltGroup(m_Salts, 0, SIM_WIDTH, 0, SIM_HEIGHT, MAX_SALT_SIZE, l_SaltColor, m_Random);
-
-            /// Destination ///
-            m_DestinationPosX = 30;
-            m_DestinationPosY = 30;
-            m_DestinationMargin = 20;
-            /// ///////////////
+            SaltController.CreateSaltGroup(m_Salts, 0, SIM_WIDTH, 0, SIM_HEIGHT, MAX_SALT_SIZE, l_SaltColor, m_PosX, m_PosY, m_SpawnRadius, m_Random);
 
 
             /// Starts the Render Loop.
             l_RenderTimer.Start();
 
             m_ProcessMap = true;
-            m_ProcessMapLoopTimeOut = 2;
+            m_ProcessMapLoopTimeOut = 5;
 
             Thread l_ProcessTrailMapThread = new Thread(ProcessTrailMap);
             l_ProcessTrailMapThread.Start();
 
             m_BLobCountTextBlock.Text = $"BlobCount: {m_BlobCount}";
-
 
             Task.Run(Update);
         }
@@ -105,7 +104,7 @@ namespace BlobSimulator
             {
                 m_TPS++;
 
-                Parallel.ForEach(m_Salts, new ParallelOptions { MaxDegreeOfParallelism = 16 }, p_Salt => { p_Salt.Draw(m_TrailMap); });
+                Parallel.ForEach(m_Salts, new ParallelOptions { MaxDegreeOfParallelism = 12 }, p_Salt => { p_Salt.Draw(m_TrailMap); });
 
                 Parallel.ForEach(m_BlobCells, new ParallelOptions { MaxDegreeOfParallelism = 24 }, p_BlobCell =>
                 {
@@ -136,10 +135,9 @@ namespace BlobSimulator
                 m_Stopwatch.Restart();
             }
 
-            // Update the Image source (Which is being displayed).
-
             //m_TrailMap.m_BitMap.DrawSquare(m_DestinationPosX - m_DestinationMargin, m_DestinationPosY - m_DestinationMargin, m_DestinationPosX + m_DestinationMargin, m_DestinationPosY + m_DestinationMargin, false, 1, m_DestinationColor);
 
+            // Update the Image source (Which is being displayed).
             m_Image.Source = m_TrailMap.m_BitMap.MakeBitmap(96, 96);
         }
 
@@ -147,7 +145,8 @@ namespace BlobSimulator
         {
             while (m_ProcessMap)
             {
-                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(5f, 0.2f);
+                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(5f, 0.3f);
+
                 Thread.Sleep(m_ProcessMapLoopTimeOut);
             }
         }
@@ -160,13 +159,9 @@ namespace BlobSimulator
             List<BlobController.BlobCompletedPath> l_CompletedPaths = new List<BlobController.BlobCompletedPath>();
             foreach (var l_ProcessedBlobCell in l_ProcessedBlobCells)
             {
-                //l_ProcessedBlobCell.Draw(m_TrailMap);
                 List<BlobController.BlobCompletedPath> l_CurrentBlobCompletedPaths = BlobController.GiveCompleteBlobPathList(l_ProcessedBlobCell.m_BlobVectors, m_PosX, m_PosY, m_SpawnRadius, m_DestinationPosX, m_DestinationPosY, m_DestinationMargin);
                 foreach (var l_Path in l_CurrentBlobCompletedPaths)
                     l_CompletedPaths.Add(l_Path);
-                //BlobCell.DrawVectorStatic(l_Path.m_BlobVectors, l_ProcessedBlobCell.m_DisplayedColor, m_TrailMap);
-                //l_ProcessedBlobCell.DrawVector(m_TrailMap);
-                //m_TrailMap.m_BitMap.DrawLine(100, 140, 80, 120, 0, 10, Color.DeepSkyBlue);
             }
 
             BlobCell.DrawVectorStatic(BlobController.GiveShortestDestinationPath(l_CompletedPaths).m_BlobVectors, m_PathColor, m_TrailMap);
