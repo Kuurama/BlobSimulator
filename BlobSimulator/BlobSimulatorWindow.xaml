@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="BlobSimulator" Loaded="Window_Loaded" ResizeMode="CanResize" SizeChanged="OnRenderSizeChanged" Closing="OnWindowClosed">
+
     <Viewbox Stretch="Fill">
-        <Canvas Name="CanvasMain" />
+
+        <Canvas Name="CanvasMain">
+            <Canvas.ContextMenu> 
+                <ContextMenu> 
+                    <MenuItem Header="End simulation and get result" Click="EndSimulationAndGetResult_OnClick"/>  
+                </ContextMenu> 
+            </Canvas.ContextMenu> 
+        </Canvas>
+
     </Viewbox>
 
 </Window>

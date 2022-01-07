@@ -28,10 +28,19 @@ namespace BlobSimulator
         public static Color[]? m_BlockListColor;
 
         /// Important Variable.
-        private readonly BlobCell[] m_BlobCells;
+        private BlobCell[] m_BlobCells;
+        
 
         private readonly int m_BlobCount;
+        
+        /// Sets the blob's position.
+        private readonly int m_PosX, m_PosY, m_SpawnRadius;
 
+        private bool m_BoolUpdateLoop = true;
+        public static int m_DestinationPosX, m_DestinationPosY, m_DestinationMargin;
+        
+
+        /// TextBox.
         private readonly TextBlock m_BLobCountTextBlock = new TextBlock
         {
             Text = "BlobCount: 0",
@@ -39,8 +48,6 @@ namespace BlobSimulator
             FontSize = SIM_HEIGHT * 0.015f
         };
 
-
-        /// TextBox.
         private readonly TextBlock m_FPSTextBlock = new TextBlock
         {
             Text = "FPS: 0",
@@ -56,7 +63,7 @@ namespace BlobSimulator
             Source = null
         };
 
-        private readonly bool m_ProcessMap = true;
+        private bool m_ProcessMap = true;
         private readonly int m_ProcessMapLoopTimeOut;
 
         private readonly Random m_Random;

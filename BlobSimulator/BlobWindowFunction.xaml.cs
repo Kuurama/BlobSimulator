@@ -55,5 +55,12 @@ namespace BlobSimulator
             Environment.Exit(Environment.ExitCode); // Prevent memory leak
             //System.Windows.Application.Current.Shutdown(); // Not sure if needed
         }
+        
+        private void EndSimulationAndGetResult_OnClick(object p_Sender, RoutedEventArgs p_E)
+        {
+            m_BoolUpdateLoop = false;
+            m_ProcessMap = false;
+            ProcessResult();
+        }
     }
 }

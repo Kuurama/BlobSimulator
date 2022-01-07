@@ -60,5 +60,10 @@ namespace BlobSimulator
 
             return l_MaxStep;
         }
+        
+        public static bool IsInArea(int p_PosX, int p_PosY, int p_AreaX, int p_AreaY, int p_AreaMargin)
+        {
+            return p_PosX >= p_AreaX - p_AreaMargin && p_PosX <= p_AreaX + p_AreaMargin && p_PosY >= p_AreaY - p_AreaMargin && p_PosY <= p_AreaY + p_AreaMargin;
+        }
     }
 }
