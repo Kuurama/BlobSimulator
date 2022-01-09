@@ -7,6 +7,11 @@
     <list default="true" id="64056f15-e195-4915-902a-c7e0bd0f6484" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BlobSimulator/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobCell.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/Blob/BlobController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorAttribute.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +44,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/6E/Byte.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/445aeb7cc4724fad9006138d2f148517218588/11B/DependencyObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/3A/RuntimeType.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2e9beeb180834f4b9abea5f3db1bc8bd8f5578/E2/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BlobSimulator/obj/Debug/net5.0-windows/App.g.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0c47efafd9b34467af98eb8eafc817ce1e580/A/Color.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BlobSimulator/BlobSimulatorWindow.xaml.cs" root0="FORCE_HIGHLIGHTING" />
@@ -131,6 +137,12 @@
       <workItem from="1641498882865" duration="28950000" />
       <workItem from="1641574159117" duration="445000" />
       <workItem from="1641575406902" duration="251000" />
+      <workItem from="1641600863978" duration="48000" />
+      <workItem from="1641601014509" duration="248000" />
+      <workItem from="1641646116549" duration="210000" />
+      <workItem from="1641665486901" duration="12758000" />
+      <workItem from="1641680066885" duration="9919000" />
+      <workItem from="1641690357790" duration="4434000" />
     </task>
     <servers />
   </component>
@@ -158,24 +170,5 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BlobSimulator/BlobWindowFunction.xaml.cs</url>
-          <line>82</line>
-          <properties documentPath="C:\Users\jaune\Documents\RiderProjects\BlobSimulator\BlobSimulator\BlobWindowFunction.xaml.cs" initialLine="82" containingFunctionPresentation="method 'EndSimulationAndGetResult_OnClick'">
-            <startOffsets>
-              <option value="3667" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3683" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

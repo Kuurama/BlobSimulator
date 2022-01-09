@@ -55,7 +55,9 @@ namespace BlobSimulator.Blob
                 foreach (BlobVectorFormat l_BlobVector in p_BlobCells[l_I].m_BlobVectors
                     .Where(p_BlobVector => !(p_BlobVector.m_PosX < p_DestinationPosX - p_DestinationMargin) && !(p_BlobVector.m_PosX > p_DestinationPosX + p_DestinationMargin))
                     .Where(p_BlobVector => p_BlobVector.m_PosY > p_DestinationPosY - p_DestinationMargin && p_BlobVector.m_PosY < p_DestinationPosY + p_DestinationMargin))
+                {
                     l_BlobVectorMatch = true; /// One of the blob position match with the Destination.
+                }
 
                 if (l_BlobVectorMatch) l_SortedBlobCells.Add(p_BlobCells[l_I]);
             }
@@ -82,7 +84,7 @@ namespace BlobSimulator.Blob
                     }
                     else
                     {
-                        l_BlobVectorList.Add(l_BlobVector); /// Blob starting from the Base technically.
+                        l_BlobVectorList.Add(l_BlobVector); /// Blob starting from the Base.
                     }
                 }
                 else /// The blob isn't in the Base Area.
@@ -108,6 +110,57 @@ namespace BlobSimulator.Blob
                 select new BlobCompletedPath { m_BlobVectors = l_BlobVectors, m_Distance = l_Distance }).ToList();
         }
 
+
+        /// <summary>
+        /// Merge all Path depending on their shared node and the lower distance. DO NOT USE. BAD, GARBAGE.
+        /// </summary>
+        /// <param name="p_BlobVectors"></param>
+        /// <param name="p_BasePosX"></param>
+        /// <param name="p_BasePosY"></param>
+        /// <param name="p_BasePosMargin"></param>
+        /// <param name="p_DestinationPosX"></param>
+        /// <param name="p_DestinationPosY"></param>
+        /// <param name="p_DestinationMargin"></param>
+        /// <returns></returns>
+        private static List<BlobCompletedPath> MergeAndSortAllPathByNode(List<BlobCompletedPath> p_BlobCompletedPaths, int p_SimilarityParameter, int p_Margin, int p_MaxNodeCount)
+        {
+            List<BlobVectorFormat> l_TotalVectorList = new List<BlobVectorFormat>();
+            foreach (var l_BlobPath in p_BlobCompletedPaths)
+            {
+                if (l_BlobPath.m_BlobVectors != null)
+                {
+                    l_TotalVectorList.AddRange(l_BlobPath.m_BlobVectors);
+                }
+            }
+
+            List<BlobVectorFormat> l_SimilarVectorList = (
+                from l_BlobVector in l_TotalVectorList
+                from l_SearchedVector in l_TotalVectorList
+                where !(l_BlobVector.m_PosX - l_SearchedVector.m_PosX >= p_SimilarityParameter)
+                where !(l_BlobVector.m_PosY - l_SearchedVector.m_PosY >= p_SimilarityParameter)
+                select l_SearchedVector).ToList();
+
+            List<BlobCompletedPath> l_CompletedPaths = new List<BlobCompletedPath>();
+            foreach (var l_SimilarVector in l_SimilarVectorList)
+            {
+                List<BlobCompletedPath> l_AllPathBetweenTwoNode = new List<BlobCompletedPath>();
+                foreach (var l_SimilarSecondVector in l_SimilarVectorList)
+                {
+                    l_AllPathBetweenTwoNode.AddRange(GiveCompleteBlobPathList(l_TotalVectorList, (int)l_SimilarVector.m_PosX, (int)l_SimilarVector.m_PosY, p_Margin, (int)l_SimilarSecondVector.m_PosX, (int)l_SimilarSecondVector.m_PosY, p_Margin));
+                }
+
+                l_CompletedPaths.Add(GiveShortestDestinationPath(l_AllPathBetweenTwoNode));
+                if (l_CompletedPaths.Count >= p_MaxNodeCount)
+                {
+                    break;
+                }
+            }
+
+
+            return l_CompletedPaths;
+        }
+
+
         public static BlobCompletedPath GiveShortestDestinationPath(List<BlobCompletedPath> p_BlobPathList)
         {
             BlobCompletedPath l_BestBlobPath = new BlobCompletedPath();
@@ -120,6 +173,7 @@ namespace BlobSimulator.Blob
                     l_MinDistance = l_BlobPath.m_Distance;
                 }
 
+            l_BestBlobPath = new BlobCompletedPath() { m_BlobVectors = l_BestBlobPath.m_BlobVectors, m_Distance = l_BestBlobPath.m_Distance };
             return l_BestBlobPath;
         }
 

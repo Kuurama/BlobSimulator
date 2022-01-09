@@ -40,16 +40,18 @@ namespace BlobSimulator
             m_UncappedTPS = false; /// Set the uncapped TPS to false.
 
             /// Sets randomly the blob's position.
-            m_PosX = SIM_WIDTH - SIM_WIDTH / 7;
-            m_PosY = SIM_HEIGHT - SIM_HEIGHT / 6;
+            //m_PosX = SIM_WIDTH - SIM_WIDTH / 7;
+            //m_PosY = SIM_HEIGHT - SIM_HEIGHT / 6;
+            m_PosX = (SIM_WIDTH/ 2);
+            m_PosY = (SIM_HEIGHT/ 2);
 
-            //m_BlobCount = 1000000 / 6;
-            m_BlobCount = 25000;
+            m_BlobCount = 50000;
+            //m_BlobCount = 1000000;
             const float BLOB_SPEED = 1.00f;
             const float BLOB_TURN_SPEED = 0.4f;
-            const float SENSOR_ANGLE_SPACING = 45f;
+            const float SENSOR_ANGLE_SPACING = (float)Math.PI/6;
             const int SENSOR_SIZE = 1, SENSOR_OFFSET_DST = 20;
-            m_SpawnRadius = 25;
+            m_SpawnRadius = 50;
 
 
             const bool SAVE_DIRECTION = true; /// Make the BlobCells able to save their Path.
@@ -72,14 +74,14 @@ namespace BlobSimulator
             m_BlobCells = new BlobCell[m_BlobCount];
             BlobController.CreateBlobGroup(m_BlobCells, m_PosX, m_PosY, m_SpawnRadius, BLOB_SPEED, BLOB_TURN_SPEED, SENSOR_ANGLE_SPACING, SENSOR_SIZE, SENSOR_OFFSET_DST, l_BlobColor, SAVE_DIRECTION, m_Random);
 
-            m_SaltCount = 50;
+            m_SaltCount = 70; /// 50
             m_Salts = new Salt.Salt[m_SaltCount];
             Color l_SaltColor = Color.White;
             m_BlockListColor = new Color[1];
 
             m_BlockListColor[0] = l_SaltColor;
 
-            const int MAX_SALT_SIZE = 25;
+            const int MAX_SALT_SIZE = 50;
             SaltController.CreateSaltGroup(m_Salts, 0, SIM_WIDTH, 0, SIM_HEIGHT, MAX_SALT_SIZE, l_SaltColor, m_PosX, m_PosY, m_SpawnRadius, m_Random);
 
 
@@ -88,7 +90,7 @@ namespace BlobSimulator
 
             m_ProcessMap = true;
             m_ProcessMapLoopTimeOut = 5;
-
+            
             Thread l_ProcessTrailMapThread = new Thread(ProcessTrailMap);
             l_ProcessTrailMapThread.Start();
 
@@ -143,10 +145,13 @@ namespace BlobSimulator
 
         private void ProcessTrailMap()
         {
-            while (m_ProcessMap)
+            while (true)
             {
-                m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(5f, 0.3f);
-
+                if (m_ProcessMap)
+                {
+                    m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(5f, 0.4f);
+                }
+                
                 Thread.Sleep(m_ProcessMapLoopTimeOut);
             }
         }
@@ -154,8 +159,7 @@ namespace BlobSimulator
         private void ProcessResult()
         {
             List<BlobCell> l_ProcessedBlobCells = BlobController.SortBlobByDestination(m_BlobCells, m_DestinationPosX, m_DestinationPosY, m_DestinationMargin);
-
-            //m_TrailMap.m_BitMap.BlurAndEvaporateAllPixel(255f, 0f); /// Clear the map.
+            
             List<BlobController.BlobCompletedPath> l_CompletedPaths = new List<BlobController.BlobCompletedPath>();
             foreach (var l_ProcessedBlobCell in l_ProcessedBlobCells)
             {

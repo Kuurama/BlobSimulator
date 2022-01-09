@@ -11,8 +11,10 @@
         <Canvas Name="CanvasMain" MouseDown="OnPreviewMouseRightButtonDown">
             <Canvas.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="End simulation and get result" Click="EndSimulationAndGetResult_OnClick" />
+                    <MenuItem Header="Stop simulation and get result" Click="StopSimulationAndGetResult_OnClick" />
+                    <MenuItem Header="ResumeSimulation" Click="ResumeSimulation_OnClick" />
                     <MenuItem Header="Set new Destination" Click="SetNewDestination_OnClick" />
+                    <MenuItem Header="Clear Blob Vector By Destination" Click="ClearBlobVectorByDestination_OnClick" />
                 </ContextMenu>
             </Canvas.ContextMenu>
         </Canvas>

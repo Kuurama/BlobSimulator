@@ -94,9 +94,15 @@ namespace BlobSimulator.Blob
                 }
                 else
                 {
-                    bool l_OldVectorIsInDestination = StaticFunction.IsInArea((int)m_BlobVectors[l_BlobVectorCount - 1].m_PosX, (int)m_BlobVectors[l_BlobVectorCount - 1].m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin);
-                    if (Math.Abs(m_BlobVectors[l_BlobVectorCount - 1].m_Angle - m_Angle) > 0.001 && !l_OldVectorIsInDestination || !l_OldVectorIsInDestination && StaticFunction.IsInArea((int)m_PosX, (int)m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin))
+                    
+                    //bool l_OldVectorIsInDestination = StaticFunction.IsInArea((int)m_BlobVectors[l_BlobVectorCount - 1].m_PosX, (int)m_BlobVectors[l_BlobVectorCount - 1].m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin);
+                    //if (Math.Abs(m_BlobVectors[l_BlobVectorCount - 1].m_Angle - m_Angle) > 0.001 && !l_OldVectorIsInDestination || !l_OldVectorIsInDestination && StaticFunction.IsInArea((int)m_PosX, (int)m_PosY, BlobSimulatorWindow.m_DestinationPosX, BlobSimulatorWindow.m_DestinationPosY, BlobSimulatorWindow.m_DestinationMargin))
+                    if (Math.Abs(m_BlobVectors[l_BlobVectorCount - 1].m_Angle - m_Angle) > 0.1)
+                    {
                         m_BlobVectors.Add(new BlobVectorFormat { m_PosX = m_PosX, m_PosY = m_PosY, m_Angle = m_Angle, m_StepX = l_NewPosX - m_PosX, m_StepY = l_NewPosY - m_PosY });
+                    }
+                        
+                      
 
                     /// Adding the new coordonate if the BlobCell shift direction and wasn't on the Final destination, or if the old blob register coordinate wasn't on the Destination and now is inside. (So we can optimise the space taken, the performances doesn't seems to be really impacted by those mathematic check too much/at all)
                 }
@@ -117,7 +123,7 @@ namespace BlobSimulator.Blob
             float l_RandomSteerStrength = (float)p_Random!.NextDouble();
 
             // ReSharper disable CompareOfFloatsByEqualityOperator
-            if (l_WeightForward == float.MinValue && l_WeightLeft == float.MinValue && l_WeightRight == int.MinValue)
+            if (l_WeightForward == int.MinValue && l_WeightLeft == int.MinValue && l_WeightRight == int.MinValue)
                 m_Angle += 3.14159f;
             else if (l_WeightForward > l_WeightLeft && l_WeightForward > l_WeightRight)
                 m_Angle += 0;

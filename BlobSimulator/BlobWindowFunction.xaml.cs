@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using BlobSimulator.Blob;
 
 namespace BlobSimulator
 {
@@ -76,11 +79,23 @@ namespace BlobSimulator
             //System.Windows.Application.Current.Shutdown(); // Not sure if needed
         }
 
-        private void EndSimulationAndGetResult_OnClick(object p_Sender, RoutedEventArgs p_E)
+        private void StopSimulationAndGetResult_OnClick(object p_Sender, RoutedEventArgs p_E)
         {
             m_BoolUpdateLoop = false;
             m_ProcessMap = false;
             ProcessResult();
+            
+        }
+        
+        private void ResumeSimulation_OnClick(object p_Sender, RoutedEventArgs p_E)
+        {
+            m_ProcessMap = true;
+            
+            if (m_BoolUpdateLoop) return;
+            
+            m_BoolUpdateLoop = true;
+           
+            Task.Run(Update);
         }
 
         private void SetNewDestination_OnClick(object p_Sender, RoutedEventArgs p_E)
@@ -88,12 +103,39 @@ namespace BlobSimulator
             m_DestinationPosX = (int)m_MousePoint.X;
             m_DestinationPosY = (int)m_MousePoint.Y;
         }
+        
+        private void SetNewStart_OnClick(object p_Sender, RoutedEventArgs p_E)
+        {
+            m_PosX = (int)m_MousePoint.X;
+            m_PosY = (int)m_MousePoint.Y;
+        }
+        
+        private void ClearBlobVectorByDestination_OnClick(object p_Sender, RoutedEventArgs p_E)
+        {
+            m_BoolUpdateLoop = false;
+            m_ProcessMap = false;
+            List<BlobCell> l_SortedBlobCell = BlobController.SortBlobByDestination(m_BlobCells, m_DestinationPosX, m_DestinationPosY, m_DestinationMargin);
+            foreach (var l_BlobCell in m_BlobCells)
+            {
+                if (!l_SortedBlobCell.Contains(l_BlobCell))
+                {
+                    l_BlobCell.m_BlobVectors.Clear();
+                }
+            }
+
+            m_ProcessMap = true;
+            m_BoolUpdateLoop = true;
+            Task.Run(Update);
+        }
 
         private void OnPreviewMouseRightButtonDown(object p_Sender, MouseButtonEventArgs p_E)
         {
             m_MousePoint = Mouse.GetPosition(CanvasMain);
             Canvas.SetLeft(m_FinalDestinationRectangle, m_DestinationPosX - m_DestinationMargin);
             Canvas.SetTop(m_FinalDestinationRectangle, m_DestinationPosY - m_DestinationMargin);
+            
+            Canvas.SetLeft(m_SpawnEllipse, m_PosX - m_SpawnRadius);
+            Canvas.SetTop(m_SpawnEllipse, m_PosY - m_SpawnRadius);
         }
     }
 }

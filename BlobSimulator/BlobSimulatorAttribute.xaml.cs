@@ -18,7 +18,7 @@ namespace BlobSimulator
         /// Set the screen minimum Width and Height, then the Scale Multiplier => By how much you multiply them to set the BlobSimulatorWindow Size.
         private const int MIN_WIDTH = 256, MIN_HEIGHT = 144, SCALE_MULTIPLIER = 6;
 
-        private const float SIM_SCALE_MULTIPLIER = 2;
+        private const float SIM_SCALE_MULTIPLIER = 4; /// 4
         public const int SIM_WIDTH = (int)(MIN_WIDTH * SIM_SCALE_MULTIPLIER), SIM_HEIGHT = (int)(MIN_HEIGHT * SIM_SCALE_MULTIPLIER);
         private const double SCREEN_RATIO = (double)MIN_WIDTH / MIN_HEIGHT;
 
@@ -37,7 +37,6 @@ namespace BlobSimulator
 
 
         private readonly int m_BlobCount;
-
 
         /// TextBox.
         private readonly TextBlock m_BLobCountTextBlock = new TextBlock
@@ -65,7 +64,13 @@ namespace BlobSimulator
         };
 
         /// Sets the blob's position.
-        private readonly int m_PosX, m_PosY, m_SpawnRadius;
+        private int m_PosX;
+
+        /// Sets the blob's position.
+        private int m_PosY;
+
+        /// Sets the blob's position.
+        private readonly int m_SpawnRadius;
 
         private readonly int m_ProcessMapLoopTimeOut;
 
